@@ -1,0 +1,303 @@
+\documentclass[a4paper, 11pt]{report}
+
+\usepackage{color}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage{graphicx}
+%\usepackage[cm]{fullpage}
+
+\graphicspath{{./img/}}
+
+\def\maketitle{
+  \hspace{-3.5cm}
+    \hbox to 0px{\includegraphics[scale = 0.7]{LOGO_UNS.png}}  
+    \hbox to 12cm{}  
+    \hbox to 0px{\includegraphics[scale = 1.1]{Polytech.jpg}} 
+  \vfill
+  \begin{center}\leavevmode
+    \normalfont
+    {\LARGE \textbf{CAMASH: DOCUMENT DESCRIPTIF DU JEU}\par}%
+    ~~\\
+    ~~\\
+    {\Large Auteurs:\textbf{ Jérémy~Gabriele, Clément~Léger, Romaric~Pighetti} \par}%
+    ~~\\
+    ~~\\
+    {\Large Encadrant: \textbf{Jean-Paul Stromboni} \par}%
+    ~~\\
+    ~~\\
+    {\Large \'Ecole: \textbf{Polytech'Nice-Sophia} \par}%
+    ~~\\
+    ~~\\
+    {\Large \textbf{\today}   \par}%
+    ~~\\
+    ~~\\
+    {\Large \textbf{Version 0.1}   \par}
+    \vspace {3cm}
+    {\Large \textbf{Résumé:}\par}%
+    \end{center}%
+    Ce document présente et décrit le jeu qui sera développer par Jérémy~Gabriele, Clément~Léger et 
+    Romaric~Pighetti pour leur projet dans le cadre du cours de Conception d'Application Multimédia
+    Animée en Situation de Handicap (CAMASH). Le jeu développé au cours de ce projet est un jeu de 
+    parcours de donjon développé à l'aide de javascript, html5 et css. Ce document décrit tous les éléments
+    du jeu ainsi que les différentes interactions possible. Il donne aussi un planning prévisionnel du 
+    développement de l'application.
+  \vfill
+  \null
+  \clearpage
+}
+
+\begin{document}
+  \maketitle
+  
+  \chapter*{Introduction}
+    Le document descriptif du jeu a pour but de présenter le projet à l'équipe encadrante, afin de montrer
+    l'état de nos réflexions et nos idées, ainsi qu'un planning prévisionnel de conception pour qu'elle puisse
+    juger de la faisabilité du projet. Mais ce document a aussi pour objectif de guider les développeurs tout
+    au long de la conception du jeu. C'est pourquoi ce document comporte des informations très détaillées
+    sur les différents points du jeu. Lorsque quelqu'un a un doute sur le comportement que doit avoir le jeu
+    dans une certaine situation ou ce qui doit \^etre affiché, il doit pouvoir trouver la réponse dans ce
+    document. Nous trouverons donc dans une première partie une présentation générale du jeu qui sera
+    développé. Nous rentrerons ensuite dans les détails du gameplay et des mécanismes de jeu. Les détails
+    sur l'interface graphique, comportant les diagrammes d'écran, suivra avant de se pencher sur certain 
+    détails techniques tel que l'intelligence artificielle ou les plate formes visées. Enfin un planning 
+    prévisionnel sera donné, permettant de voir l'organisation prévu par le groupe pour que le 
+    développement soit terminé dans les temps.
+
+  \tableofcontents
+
+  \part{Présentation du Jeu}
+    \chapter{Concept du jeu}
+      Le jeu présenté ici est un jeu de parcours de donjon. Le joueur commence dans une pièce et doit 
+      parcourir le donjon, formé de plusieurs pièces, afin de trouver un objet. Cependant, les pièces du
+      donjon ne sont pas éclairées. Le joueur possède donc une source de lumière lui permettant d'éclairer
+      une certaine zone autour de lui. Mais cette source de lumière ne peut l'éclairer indéfiniment, il devra 
+      trouver du carburant pour l'alimenter régulièrement au cours de son parcours s'il veut conserver de 
+      la lumière. Le donjon est de plus infesté de monstres, et le joueur sera incapable de se battre tant qu'il
+      tiendra sa source de lumière à la main. Il devra donc la déposer pour pouvoir se battre et la reprendre
+      ensuite. Notre héros possède aussi un sonar, outil lui permettant d'envoyer une onde et d'en observer
+      les échos pour deviner les objets l'entourant. 
+
+    \chapter{Ensemble des fonctions}
+
+    \chapter{Genre}
+  
+    \chapter{Public visé}
+
+    \chapter{Aspect général}
+
+    \chapter{Portée du projet}
+
+  \part{Gameplay et Mécanismes de Jeu}
+
+    \chapter{Environnement}
+      Dans ce chapitre nous allons nous efforcer de décrire le plus finement possible l'environnement dans
+      lequel nos acteurs vont évoluer. Nous allons pour cela décrire les composants pouvant apara\^itre 
+      puis nous nous pencherons sur les lois physiques qui régissent notre monde virtuel.
+
+      \section{Le monde}
+        Notre monde est simple, nous naviguons dans un donjon qui est composé de salles. Chaque salle 
+        pouvant avoir des murs, des portes, des objets posés au sol ainsi que des ennemis s'y trouvant.
+        Décrivons plus en détail ces éléments.
+
+        \subsection{Le héros}
+          Le héros est un simple \^etre humain. Il parcours les salles du donjon à la recherche du trésor.
+
+        \subsection{Les monstres}
+          Les monstres sont des entités malfaisantes qui sont présentes dans les salles et qui ne peuvent
+          changer de salle. Ils attaqueront le héros si celui-ci s'approche trop.
+
+        \subsection{Les objets}
+          Les objets sont décrits plus amplement dans un chapitre suivant, ici seul nous intéresse le fait qu'ils
+          sont déposés sur le sol dans les salles et n'emp\^echent pas les acteurs de se déplacer sur ces 
+          cases. Ils peuvent aussi \^etre portés par des monstres, ils tomberont alors au sol à l'endroit où le
+          monstre a été tué. Les limites sur le port d'objet par le joueur sont explicités plus loin dans cette 
+          partie.
+          
+        \subsection{Les objets massifs}
+          Les objets massifs sont des objets que le héros ne peut pas ramasser et sur lesquels on ne peut se
+          déplacer. Ce sont des éléments de décor comme des tables, des chaises, des coffres ou autre.
+          
+        \subsection{Les murs}
+          Les murs sont des zones infranchissable dans une salle. Ils composent aussi le tour de la salle là où
+          il n'y a pas de porte.
+          
+        \subsection{Les portes}
+          Les portes sont présentes seulement sur le bord des salles et permettent au héros de passer aux 
+          salles adjacentes.
+          
+        \subsection{Les salles}
+          Une salle est définit par un ensemble de murs, des objets massifs (tables, chaises), des monstres
+          présents dans la salle et des portes permettant de passer à d'autres salles.
+          
+        \subsection{Le donjon}
+          Le donjon est l'ensemble des salles dans lesquels le joueur évolue au cours d'une partie. Chaque
+          nouvelle partie donne naissance à un nouveau donjon généré au début de celle-ci. 
+          Le donjon est représenté par un graphe de
+          salles, définissant ainsi les liaisons entre les salles, sachant qu'une salle ne peut   \^etre connectée
+          à plus de 4 autres salles. Le joueur n'a pas accès à une représentation du donjon. Il pourra créer sa
+          propre carte s'il le souhaite.
+
+      \section{La physique}
+        
+        \subsection{Positions autorisées pour les objets et les acteurs}
+          Les objets et les acteurs ne peuvent se trouver que sur des cases correspondant au sol d'une salle, 
+          ils ne peuvent se trouver sur les murs ou les objets dit massifs. Deux acteurs ne peuvent occuper
+          une m\^eme position au m\^eme moment.
+        
+        \subsection{La lumière}
+          La lumière ne peut pas traverser les murs. Si une source de lumière est placée proche d'un mur, de
+          telle sorte que la zone qu'elle peut éclairer s'étant au delà du mur, l'éclairage s'arrête au niveau
+          du mur. La lumière traverse les objets massifs, ce qui permet de les éclairer et d'éclairer au delà de
+          ceux-ci. De même la présence de monstre n'arrête pas la lumière.
+          
+        \subsection{Les ondes du sonar}
+          Les ondes du sonar ne traversent rien. Dès qu'un objet est rencontré par l'onde du sonar (mur, objet,
+          objet massif, monstre), celle-ci est renvoyée dans la direction de laquelle elle provenait.
+          
+        %\subsection{Les projectiles}
+          %Les projectiles des armes (des monstres ou du héros) passent au dessus des objets et des objets 
+          %massifs mais ne peuvent pas traverser les murs. Chaque projectile est muni d'une distance 
+          %maximum qu'il peut parcourir, au delà de cette distance il disparaît sans effectuer de dégâts.
+          %Les projectiles disparaissent aussi lorsqu'ils entrent en contact avec un autre acteur (monstre ou 
+          %héros) en lui infligeant les dégâts associés au projectile en question.
+
+    \chapter{Objectifs}
+      \subsection{Objectif principal}
+        Trouver la clé pour pouvoir s'échapper du donjon.
+        
+      \subsection{Objectif secondaire}
+        Trouver les bairks et les emmener hors du donjon.
+      
+    \chapter{Objets}
+      \section{Objets massifs}
+        Ces objets sont simplement déposé sur le sol dans les salles. Aucun acteur ne peut se déplacer
+        à un endroit occupé par un objet de cette catégorie. En voici la liste:
+        \begin{itemize}
+        \item{Table}
+        \item{Chaise}
+        \item{Coffre}
+        \end{itemize}
+        
+      \section{Objets récupérable}
+        Ces objets sont ramassé dès que le héros passe sur la case qu'ils occupent.
+        
+        \subsection{Cœur de vie}
+          Il redonne un cœur de vie au héros. Si la vie du héros est pleine, le cœur disparaît sans avoir d'effet.
+          Si il manque moins d'un cœur de vie au joueur, sa vie est mise au maximum et le cœur de vie
+          disparaît.
+        
+        \subsection{Clé}
+          Le clé est stockée dans dans l'inventaire du héros lorsqu'il la ramasse. Elle n'existe qu'en un 
+          exemplaire dans un donjon et permet au héros de sortir du donjon.
+          
+        \subsection{Lanterne}
+          La lanterne peut-être déposée au sol. Lorsqu'elle est sur le sol elle est considérée comme un objet
+          récupérable. Le héros la reprend donc automatiquement lorsqu'il passe à l'endroit où elle se trouve.
+          
+        \subsection{Huile pour lanterne}
+          L'huile pour lanterne permet de remplir le réservoir de la lanterne afin qu'elle ne s'éteigne pas. Elle
+          permet de régénérer 1/3 du temps total d'éclairage de la lanterne. Si le réservoir de la lanterne est 
+          plein, l'huile n'a aucun effet mais disparaît tout de même. Si moins d'un tiers du réservoir est vidé, 
+          le réservoir est remplis et l'huile disparaît.
+          
+        \subsection{Bairks}
+          Bien que se déplaçant, les bairks peuvent être considérés comme des objets récupérable. Lorsque
+          le joueur passe à l'endroit où un bairks se trouve, il le prend avec lui automatiquement. Le bairks
+          sera dès lors caché dans une poche du héros.
+          
+    \chapter{Actions}
+      
+      \section{Déplacements}
+        Le joueur peut déplacer le héros vers le haut, vers le bas, vers la droite ou vers la gauche. Si la 
+        direction vers laquelle le joueur veut déplacer le héros est occupée par un mur ou un objet massif, 
+        le héros ne se déplacera pas.
+
+      \section{Poser la lampe}
+        Le héros peut aussi déposer sa lanterne. Cette action a pour effet de poser la lanterne dans la zone
+        occupée par le héros au moment de l'action.
+        
+      \section{Ramasser un objet}
+        Le héros ramassera automatiquement et utilisera immédiatement (si approprié) les objet récupérable
+        occupant les espaces qu'il traverse. Si ces objets ne sont pas utilisable immédiatement ils seront
+        laissé sur place ou stocké selon les cas. Le paragraphe destiné aux objets décrit le comportement
+        désiré pour chaque objet.
+        
+      \section{Attaquer}
+        On peut aussi faire attaquer le héros à l'aide de son couteau. Le héros n'est pas capable d'utiliser son
+        couteau s'il porte la lanterne, il doit donc la poser avant de pouvoir attaquer. Si la lanterne n'est pas
+        posée et qu'une action d'attaque est demandée, rien ne se passe.
+        
+      \section{Utilisation du sonar}
+        On peut déclencher le sonar que possède le héros. Cela aura pour effet de lancer une onde sonar de
+        façon circulaire autour du personnage. La propagation de cette onde sera visible sur l'écran de jeu 
+        ainsi que ces réflexions, permettant au joueur de se repérer quelque peut. Après avoir été utilisé, le 
+        sonar est désactivé pendant quelques secondes. Si le joueur demande à réutiliser le sonar dans cette
+        période de temps, rien ne se passe.
+
+  \part{Interface}
+    \chapter{Interface graphique}
+      \section{Diagramme d'écran}
+
+      \section{Description des écrans}
+        \subsection{Menu principal}
+        
+        \subsection{etc.}
+
+    \chapter{Sons}
+
+    \chapter{Contrôle}
+
+  \part{Technique}
+    
+    \chapter{Intelligence artificielle}
+      
+      \section{Les monstres}
+        L'intelligence des monstres et très sommaire, ils se déplacent aléatoirement dans la salle qu'ils 
+        occupent. Si le héros se trouve assez près d'eux, ils se dirigent vers lui et commence à l'attaquer.
+        On peut tout de m\^eme distinguer différents comportements vis-à-vis de la lumière:
+        \begin{itemize}
+        \item{Ceux qui fuient la lumière}
+        \item{Ceux qui sont attiré par la lumière}
+        \item{Ceux qui sont indifférent à la lumière}
+        \end{itemize}
+        Le comportement des ennemies qui sont indifférent à la lumière auront exactement le comportement
+        décrit ci-dessus. Les monstres fuyant la lumière ne rentrerons pas dans l'éclairage fournis par la 
+        lanterne. Ils resteront donc en limite de la zone éclairé et suivront le héros de cette manière si celui-
+        ci s'approche de trop près. Enfin les ennemies attirés par la lumière chercheront à tout pris à aller 
+        dans la zone éclairée par la lanterne.
+        
+      \section{Les bairks}
+        Les bairks se déplacent aléatoirement dans les salles qu'ils occupent tout en fuyant la lumière. Un
+        bairks ne s'aventurera jamais sur une case éclairée.
+
+    \chapter{Plate forme ciblée}
+      Le jeu devra s'exécuter correctement dans les navigateurs suivant:
+      \begin{itemize}
+      \item{Firefox >4}
+      \item{Chrome >X}
+      
+      \end{itemize}
+
+    \chapter{Langages utilisés}
+
+    \chapter{Cadre d'application et bibliothèques utilisées}
+
+  \part{Planning et organisation}
+
+    \chapter{Planning}
+      
+    \chapter{Répartition des t\^aches}
+
+  \chapter*{Conclusion} 
+    Le jeu décrit dans ce document est un jeu assez ambitieux pour le temps accordé au développement. 
+    On peut cependant espérer arriver à une première version contenant les éléments principaux et 
+    permettant déjà de jouer, m\^eme si des améliorations de contenu seront certainement nécessaires
+    pour que l'expérience de jeu ne soit pas trop monotone. De m\^eme, le comportement des monstres
+    et la génération des salles pourront \^etre améliorer dans le futur si ce jeu est prometteur. La 
+    réalisation de se projet doit pouvoir donner une première version jouable du jeu intégrant la prise en
+    compte d'un handicap auditif et implémentant toutes les fonctionnalités présentées. Du contenu et
+    des améliorations pouvant \^etre apportées ensuite.
+   
+  \clearpage
+
+\end{document}

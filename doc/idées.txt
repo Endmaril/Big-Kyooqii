@@ -1,0 +1,56 @@
+-On ne peut tirer que quand on pose la source de lumière
+
+-La source de lumière s'épuise doucement
+
+-Clés pour les portes
+
+-Vu de dessus, déplacement haut bas gauche droite
+
+-gestion de handicap auditif -> caption
+
+-Sonar graphique -> onde se propageant depuis le joueur, réfléchit par les obstacles rencontrés
+
+-armes: à ramasser, corps à corps et distance
+
+-Objets: armes, restauration de vie, clés, carburant torche
+
+-Fog: pièce noire, on ne voit pas au delà d'une certaine distance
+
+-Une salle = un écran, pas de scrolling
+
+-Condition pour sortir d'une salle:
+	(- trouver la clé
+	(- tuer les monstres
+
+-But optionnel:
+	(-Sauver les bairk !
+
+-Ennemies:
+	(-comportement vis-à-vis de la lumière suivant les cas fuite/indiférent/attirance
+	(-grognement selon l'ennemi
+	(-Déplacement aléatoire -> Focus lorsqu'on se rapproche
+	(-
+
+-Options:
+	(-Difficulté <- pv joueur et nombre ennemis
+
+2grilles: 
+	(-Tiles
+	(-Déplacements
+
+-GUI:
+	Item et points de vie et infos: en dessous du canvas.
+	Canvas = salle en cours d'exploration, dessins des parties visible, le reste est sombre + sonar
+	Caption: localisé sur les monstres lorsque visibles, sinon "sous titre" centré en bas.
+
+Sons:
+	Grognements ?
+	armes ?
+	pas ?
+	portes ?
+
+Une partie = un donjon
+
+Un donjon = un graphe de X salles avec une salle de départ et une salle du trésor
+
+

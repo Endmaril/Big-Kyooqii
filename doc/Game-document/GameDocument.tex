@@ -67,25 +67,41 @@
 
   \part{Présentation du Jeu}
     \chapter{Concept du jeu}
-      Le jeu présenté ici est un jeu de parcours de donjon. Le joueur commence dans une pièce et doit 
-      parcourir le donjon, formé de plusieurs pièces, afin de trouver un objet. Cependant, les pièces du
-      donjon ne sont pas éclairées. Le joueur possède donc une source de lumière lui permettant d'éclairer
-      une certaine zone autour de lui. Mais cette source de lumière ne peut l'éclairer indéfiniment, il devra 
-      trouver du carburant pour l'alimenter régulièrement au cours de son parcours s'il veut conserver de 
-      la lumière. Le donjon est de plus infesté de monstres, et le joueur sera incapable de se battre tant qu'il
-      tiendra sa source de lumière à la main. Il devra donc la déposer pour pouvoir se battre et la reprendre
-      ensuite. Notre héros possède aussi un sonar, outil lui permettant d'envoyer une onde et d'en observer
-      les échos pour deviner les objets l'entourant. 
-
+      Le jeu se déroule au sein d'un donjon composé de plusieurs pièces généré procéduralement et unique à chaque partie.\newline
+      Le joueur démarre une partie au milieu de ce donjon et doit le parcourir afin de trouver le trésor et s'enfuir.\newline
+      Cependant le chemin n'est pas facile :\newline
+      Les portes entre les salles ne sont pas toujours ouvertes bloquant ainsi l'accès à la suite du donjon.
+      Le joueur devra trouver l'endroit où est cachée la clé de cette porte.\newline
+      Dans les pièces se trouveront parfois des monstres hostiles que le joueur sera obligé de contourner, ou combattre
+      s'il a récupéré au préalable une arme dans le donjon.\newline
+      De plus le donjon n'est pas éclairé et la visibilité du joueur dans le noir est faible.
+      Une torche permettra au joueur de voir autour de lui, effrayer certains monstres. Il devra faire un usage intelligent
+      et modéré de cette torche : puisque le carburant en est limité, et l'allumer peut indiquer la présence du joueur
+      à certains monstres.\newline
+      Enfin le joueur peut aussi avoir accès à un sonar dont l'activation permet de localiser des objets dans la pièce,
+      sans être repéré par les monstres hostiles.
+	  
     \chapter{Ensemble des fonctions}
 
     \chapter{Genre}
-  
+      Ce jeu sera de type dongeon crawler qui caractérise les jeux dont le joueur est amené à se déplacer dans un dongeon dans le but
+     d'y vaincre des monstres, et de récupérer des trésors.\newline
+     Afin de rendre le jeu court, à jouer comme à développer, une partie se limitera à un seul étage de donjon.\newline
+     De plus le jeu n'aura pas de partie jeu de rôle : le personnage n'évoluera pas avec l'expérience et seuls les objets et armes
+     qu'il possèdent comptent.
+
     \chapter{Public visé}
+      Afin de rendre le jeu accessible à un large public, il doit être possible d'y jouer en ayant un handicap auditif.\newline
+      Ainsi nous espérons pouvoir donner la même expérience de jeu, que l'on profite du son ou non; si un son est localisé une bulle s'affiche pour décrire le son graphiquement.
 
     \chapter{Aspect général}
+      L'action se passe dans une seule pièce à la fois. Le joueur y déplace son personnage dans les 4 directions : haut, bas, gauche et droite.\newline
+      Manier une épée pour combattre demande de l'adresse. Du fait dans le jeu on ne peut tenir en main qu'un seul objet à la fois. Le joueur a accès à tout moment à l'inventaire des objets récupérés et peut choisir l'objet actif en
+      cliquant dessus. Une fois actif, l'objet peut etre activé (éclairer la pièce, attaquer, ouvrir la porte, ...) à l'aide
+      d'une seule touche.
 
     \chapter{Portée du projet}
+      
 
   \part{Gameplay et Mécanismes de Jeu}
 

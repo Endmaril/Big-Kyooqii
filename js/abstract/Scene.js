@@ -16,23 +16,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var Title = new Class({
+var Scene = new Class({
   
-  Extends: Scene,
-  
-  initialize: function()
-  {
-    
-  },
-  
-  update: function()
-  {
-    
-  },
+  objects : {},
+  ctx : null,
   
   render: function()
   {
-    
+    objects.each(function(item) { item.draw(this.ctx) });
   }
   
 });

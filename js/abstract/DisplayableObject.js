@@ -16,23 +16,28 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var Title = new Class({
-  
-  Extends: Scene,
-  
-  initialize: function()
-  {
-    
-  },
-  
-  update: function()
-  {
-    
-  },
-  
-  render: function()
-  {
-    
-  }
-  
+var DisplayableObject = new Class({
+	
+	imgPath: "",
+	x: 0,
+	y: 0,
+	
+	initialize: function(params){
+		if (params.imgSrc) this.imgSrc = params.imgSrc;
+		if (params.x) this.x = params.x;
+		if (params.y) this.y = params.y;
+	},
+	
+	prepare: function(){
+		this.img = new Image();
+		this.img.ready = false;
+		this.img.src = this.imgSrc;
+		this.img.onload = function (){
+			this.ready = true;
+		};	
+	},
+	
+	draw: function(ctx){
+			ctx.drawImage(this.img, this.x, this.y);
+	}
 });

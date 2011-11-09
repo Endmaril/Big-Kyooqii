@@ -28,13 +28,13 @@ var Title = new Class({
         this.canvas = app.canvas;
 
         this.menus.push({text: 'Play', callback: function(){
-            app.setScene(new Game());
+            app.setScene(new Game(app));
         }});
         this.menus.push({text: 'Options', callback: function(){
-            app.SetScene(new TitleOptions());
+            app.setScene(new TitleOptions(app));
         }});
         this.menus.push({text: 'Help', callback: function(){
-            app.SetScene(new TitleHelp());
+            app.setScene(new TitleHelp(app));
         }});
     },
   
@@ -60,6 +60,10 @@ var Title = new Class({
 
             this.app.invalidate();
             return false;
+        }
+        else if(event.key == 'enter')
+        {
+            this.menus[this.selected].callback();
         }
 
         return true;

@@ -31,13 +31,12 @@ var Application = new Class({
             if(!this.scene.keyDown(event))
                 event.preventDefault();
         }.bind(this));
-
-        this.invalidate();
     },
 
     setScene: function(scene)
     {
         this.scene = scene;
+        this.invalidate();
     },
 
     invalidate: function(){

@@ -16,30 +16,31 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var DisplayableObject = new Class({
+var TextObject = new Class({
 	
-	imgPath: '',
-	x: 0,
-	y: 0,
+    Extends: DisplayableObject,
+    
+	content: 'no content',
+    textAlign: 'left',
+    textBaseline: 'bottom',
+    font: '20pt Courier',
+    color: 'rgb(0, 0, 0)',
 	
 	initialize: function(params){
-		if (params.imgPath) this.imgPath = params.imgPath;
-		if (params.x) this.x = params.x;
-		if (params.y) this.y = params.y;
+        this.parent(params);
         
-        this.prepare();
-	},
-	
-	prepare: function(){
-		this.img = new Image();
-		this.img.ready = false;
-		this.img.src = this.imgPath;
-		this.img.onload = function (){
-			this.ready = true;
-		};	
+		if (params.content) this.content = params.content;
+		if (params.textAlign) this.textAlign = params.textAlign;
+		if (params.textBaseline) this.textBaseline = params.textBaseline;
+		if (params.font) this.font = params.font;
+		if (params.color) this.color = params.color;
 	},
 	
 	draw: function(ctx){
-        ctx.drawImage(this.img, this.x, this.y);
+        ctx.textAlign = this.textAlign;
+        ctx.textBaseline = this.textBaseline;
+        ctx.font = this.font;
+        ctx.fillStyle = this.color;
+        ctx.fillText(this.content, this.x, this.y);
 	}
 });

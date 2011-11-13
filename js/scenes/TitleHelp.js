@@ -20,10 +20,9 @@ var TitleHelp = new Class({
   
     Extends: Scene,
   
-    initialize: function(app)
+    initialize: function(params)
     {
-        this.app = app;
-        this.canvas = app.canvas;
+        this.parent(params);
     },
   
     update: function()
@@ -36,9 +35,10 @@ var TitleHelp = new Class({
         if(event.key == 'esc')
         {
             this.app.setScene(new Title(this.app));
+            return false;
         }
 
-        return true;
+        return false;
     },
   
     render: function(ctx, time)

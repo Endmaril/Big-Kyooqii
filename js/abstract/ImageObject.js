@@ -16,27 +16,28 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var DisplayableObject = new Class({
+var ImageObject = new Class({
 	
-	imgPath: '',
-	x: 0,
-	y: 0,
+    Extends: DisplayableObject,
+    
+    imgPath: '',
 	
 	initialize: function(params){
-		if (params.imgPath) this.imgPath = params.imgPath;
-		if (params.x) this.x = params.x;
-		if (params.y) this.y = params.y;
+        this.parent(params);
         
-        this.prepare();
-	},
-	
-	prepare: function(){
-		this.img = new Image();
-		this.img.ready = false;
-		this.img.src = this.imgPath;
-		this.img.onload = function (){
-			this.ready = true;
-		};	
+		if (params.imgPath)
+        {
+            this.imgPath = params.imgPath;
+        
+            this.img = new Image();
+            this.img.ready = false;
+            this.img.src = this.imgPath;
+            this.img.onload = function (){
+                this.ready = true;
+            };
+        } else {
+            console.log("invalid imgPath for " + this.name);
+        }
 	},
 	
 	draw: function(ctx){

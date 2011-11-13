@@ -19,12 +19,26 @@
 var Scene = new Class({
   
   objects : {},
+  canvas : null,
   ctx : null,
   app : null,
   
+  initialize: function(app){
+        if (app) {
+            this.app = app;
+            this.canvas = app.canvas;
+            this.ctx = app.context;
+        } else {
+            console.log("Pas d'app !!!");
+        }
+	},
+  
   render: function()
   {
-    objects.each(function(item) { item.draw(this.ctx) });
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    Object.each(this.objects, function(item) {
+        item.draw(this.ctx);
+    }, this);
   }
   
 });

@@ -19,13 +19,13 @@
 var Title = new Class({
   
     Extends: Scene,
+    
     menus: [],
     selected: 0,
   
     initialize: function(app)
     {
-        this.app = app;
-        this.canvas = app.canvas;
+        this.parent(app);
 
         this.menus.push({text: 'Play', callback: function(){
             app.setScene(new Game(app));
@@ -36,27 +36,62 @@ var Title = new Class({
         this.menus.push({text: 'Help', callback: function(){
             app.setScene(new TitleHelp(app));
         }});
-    },
-  
-    update: function()
-    {
-
+        
+        this.menus.push({text: 'Credits', callback: function(){
+            app.setScene(new Credit(app));
+        }});
+        
+        this.objects.titleText = new TextObject({
+            x: this.canvas.width/2,
+            y: 50,
+            content: 'Big Kyooqii',
+            textAlign: 'center',
+            textBaseline: 'top',
+            font: '40pt Courier',
+            color: 'rgb(255, 0, 0)'
+        });
+        
+        var baseY = 240;
+        
+        this.menus.each(function(item){
+            this.objects[item.text+'Text'] = new TextObject({
+                x: this.canvas.width/2,
+                y: baseY,
+                content: item.text,
+                textAlign: 'center',
+                textBaseline: 'middle'
+            });
+            baseY += 40;
+        }, this);
+        
+        this.objects.selector = new ImageObject({
+            x: this.canvas.width/2.75,
+            imgPath: $IMG_DIR+'selector.png'
+        });
+        
+        this.objects.selector.y = this.objects.PlayText.y - 10;
     },
 
     keyDown: function(event)
     {
         if(event.key == 'up')
         {
-            if(this.selected > 0)
+            if (this.selected > 0)
+            {
+                this.objects.selector.y -= 40;
                 this.selected--;
+            }
 
             this.app.invalidate();
             return false;
         }
         else if(event.key == 'down')
         {
-            if(this.selected < this.menus.length - 1)
+            if (this.selected < this.menus.length - 1)
+            {
+                this.objects.selector.y += 40;
                 this.selected++;
+            }
 
             this.app.invalidate();
             return false;
@@ -67,35 +102,5 @@ var Title = new Class({
         }
 
         return true;
-    },
-  
-    render: function(ctx, time)
-    {
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'top';
-        ctx.font = '40pt Courier';
-        ctx.fillStyle = 'rgb(255, 0, 0)';
-        ctx.fillText("Big-Kyooqii", this.canvas.width / 2, 13.37);
-
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'middle';
-        ctx.font = '20pt Courier';
-
-        var x = this.canvas.width / 3;
-        var y = 240;
-        this.menus.each(function(menu, index){
-            ctx.fillStyle = 'rgb(0, 0, 0)';
-            ctx.fillText(menu.text, x, y);
-            if(index == this.selected)
-            {
-                ctx.beginPath();
-                ctx.arc(x - 40, y, 10, 0, 2 * Math.PI, false);
-                ctx.fillStyle = 'rgb(0, 0, 255)';
-                ctx.fill();
-            }
-
-            y += 40;
-        }, this);
     }
-
 });

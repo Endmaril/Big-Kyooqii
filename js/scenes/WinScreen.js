@@ -15,3 +15,29 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+var WinScreen = new Class({
+  
+    Extends: Scene,
+  
+    initialize: function(app)
+    {
+        this.parent(app);
+        
+        this.objects.text1 = new TextObject({
+            content: 'You fucking won !'
+        });
+    },
+
+    keyDown: function(event)
+    {
+        if(event.key == 'esc')
+        {
+            this.app.setScene(new Title(this.app));
+            return false;
+        }
+
+        return true;
+    }
+
+});

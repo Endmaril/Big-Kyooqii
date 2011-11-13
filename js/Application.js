@@ -31,6 +31,10 @@ var Application = new Class({
             if(!this.scene.keyDown(event))
                 event.preventDefault();
         }.bind(this));
+        
+        document.addEvent('keyup', function(event){
+            if(this.scene.keyUp) this.scene.keyUp(event);
+        }.bind(this));
     },
 
     setScene: function(scene)

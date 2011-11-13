@@ -17,43 +17,76 @@
 */
 
 var Game = new Class({
-
-    monsters: [null],
   
     Extends: Scene,
+    
+    move: {},
   
     initialize: function(app)
     {
-        this.app = app;
-        this.canvas = app.canvas;
-        this.monsters = [];
-        this.monsters = this.monsters.append(Array.from(new Monster({name: 'Roger', pv: 10})));
-        this.monsters[0].log();
+        this.parent(app);
         
+        var m = new Monster({
+            name: 'Roger',
+            pv: 10,
+            imgPath: $IMG_DIR + 'monster.png' });
+            
+        this.objects.monster1 = m;
+        this.objects.monster1.log();
     },
   
     update: function()
     {
-
+        this.objects.monster1.x -= (this.move.left)? 10 : 0;
+        this.objects.monster1.x += (this.move.right)? 10 : 0;
+        this.objects.monster1.y -= (this.move.up)? 10 : 0;
+        this.objects.monster1.y += (this.move.down)? 10 : 0;
     },
 
     keyDown: function(event)
     {
-        if(event.key == 'esc')
+        var weDidNothing = true;
+        if (event.key == 'esc')
         {
             this.app.setScene(new Title(this.app));
+            return false;
+        }
+        if (event.key == 'up')
+        {
+            this.move.up = true;
+            weDidNothing = false;
+        }
+        if (event.key == 'down')
+        {
+            this.move.down = true;
+            weDidNothing = false;
+        }
+        if (event.key == 'left')
+        {
+            this.move.left = true;
+            weDidNothing = false;
+        }
+        if (event.key == 'right')
+        {
+            this.move.right = true;
+            weDidNothing = false;
+        }
+        
+        if (weDidNothing)
+        {
+            return true;
+        } else {
+            this.render();
+            return false;
         }
 
-        return true;
     },
-  
-    render: function(ctx, time)
+    
+    keyUp: function(event)
     {
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'bottom';
-        ctx.font = '20pt Courier';
-        ctx.fillStyle = 'rgb(0, 0, 0)';
-        ctx.fillText("Game", 0, 30);
+        if (event.key == 'up') this.move.up = false;
+        if (event.key == 'down') this.move.down = false;
+        if (event.key == 'left') this.move.left = false;
+        if (event.key == 'right') this.move.right = false;
     }
-
 });

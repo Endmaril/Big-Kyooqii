@@ -22,8 +22,7 @@ var TitleOptions = new Class({
   
     initialize: function(app)
     {
-        this.app = app;
-        this.canvas = app.canvas;
+        this.parent(app);
     },
   
     update: function()
@@ -36,9 +35,10 @@ var TitleOptions = new Class({
         if(event.key == 'esc')
         {
             this.app.setScene(new Title(this.app));
+            return false;
         }
 
-        return true;
+        return false;
     },
   
     render: function(ctx, time)

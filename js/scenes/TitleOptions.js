@@ -16,9 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var Game = new Class({
-
-    monsters: [null],
+var TitleOptions = new Class({
   
     Extends: Scene,
   
@@ -26,10 +24,6 @@ var Game = new Class({
     {
         this.app = app;
         this.canvas = app.canvas;
-        this.monsters = [];
-        this.monsters = this.monsters.append(Array.from(new Monster({name: 'Roger', pv: 10})));
-        this.monsters[0].log();
-        
     },
   
     update: function()
@@ -53,7 +47,7 @@ var Game = new Class({
         ctx.textBaseline = 'bottom';
         ctx.font = '20pt Courier';
         ctx.fillStyle = 'rgb(0, 0, 0)';
-        ctx.fillText("Game", 0, 30);
+        ctx.fillText("Fucking Options", 0, 30);
     }
 
 });

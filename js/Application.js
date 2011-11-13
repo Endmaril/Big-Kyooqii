@@ -22,7 +22,7 @@ var Application = new Class({
     canvas: null,
 
     initialize: function(){
-        this.canvas = document.getElementById('game-canvas');
+        this.canvas = document.id('game-canvas');
         this.context = this.canvas.getContext('2d');
 
         this.setScene(new Title(this));

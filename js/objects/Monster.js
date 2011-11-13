@@ -15,3 +15,54 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+var Monster = new Class({
+
+    name: '',
+
+    pv: 0,
+    att: 0,
+    def: 0,
+    x: 30,
+    y: 30,
+    speed: 0,
+    
+    imgPath: '',
+    width: 10,
+    height: 10,
+    
+
+    initialize: function(params)
+    {
+        if (params.name) this.name = params.name;
+        
+        if (params.pv) this.pv = params.pv;
+        if (params.att) this.att = params.pv;
+        if (params.def) this.def = params.pv;
+        if (params.x) this.x = params.pv;
+        if (params.y) this.y = params.pv;
+        if (params.speed) this.speed = params.pv;
+        if (params.imgPath) this.imgPath = params.pv;
+        if (params.width) this.width = params.pv;
+        if (params.height) this.height = params.pv;
+    },
+    
+    keyDown: function(event)
+    {
+        
+    },
+    
+    log: function(){
+        console.log(this.name + ":");
+        
+        console.log(this.pv + 'pv');
+        console.log(this.att + 'att');
+        console.log(this.def + 'def');
+        console.log('coord: (' + this.x + ',' + this.y + ')');
+        console.log('speed: ' + this.speed);
+        console.log('img: "' + this.imgPath + '", ' +
+            this.width + 'x' + this.height);
+    }
+
+
+});

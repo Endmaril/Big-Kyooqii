@@ -20,6 +20,7 @@ var Scene = new Class({
   
   objects : {},
   ctx : null,
+  app : null,
   
   render: function()
   {

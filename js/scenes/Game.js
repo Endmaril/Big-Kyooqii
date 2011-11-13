@@ -26,13 +26,11 @@ var Game = new Class({
     {
         this.parent(app);
         
-        var m = new Monster({
+        this.objects.monster1 = new Monster({
             name: 'Roger',
             pv: 10,
-            imgPath: $IMG_DIR + 'monster.png' });
-            
-        this.objects.monster1 = m;
-        this.objects.monster1.log();
+            imgPath: $IMG_DIR + 'monster.png'
+        });
     },
   
     update: function()
@@ -76,7 +74,7 @@ var Game = new Class({
         {
             return true;
         } else {
-            this.render();
+            this.app.invalidate();
             return false;
         }
 

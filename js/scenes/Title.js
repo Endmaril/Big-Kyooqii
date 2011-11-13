@@ -69,7 +69,7 @@ var Title = new Class({
             imgPath: $IMG_DIR+'selector.png'
         });
         
-        this.objects.selector.y = this.objects.PlayText.y - 10;
+        this.objects.selector.y = 230 + this.selected*40;
     },
 
     keyDown: function(event)

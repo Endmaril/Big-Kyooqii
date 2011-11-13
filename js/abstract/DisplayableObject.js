@@ -18,28 +18,16 @@
 
 var DisplayableObject = new Class({
 	
-	imgPath: '',
-	x: 0,
-	y: 0,
+	name: '',
+	x: 50,
+	y: 50,
 	
 	initialize: function(params){
-		if (params.imgPath) this.imgPath = params.imgPath;
+		if (params.name) this.name = params.name;
 		if (params.x) this.x = params.x;
 		if (params.y) this.y = params.y;
-        
-        this.prepare();
-	},
-	
-	prepare: function(){
-		this.img = new Image();
-		this.img.ready = false;
-		this.img.src = this.imgPath;
-		this.img.onload = function (){
-			this.ready = true;
-		};	
 	},
 	
 	draw: function(ctx){
-        ctx.drawImage(this.img, this.x, this.y);
 	}
 });

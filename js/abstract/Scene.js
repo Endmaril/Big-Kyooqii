@@ -32,8 +32,12 @@ var Scene = new Class({
             console.log("Pas d'app !!!");
         }
 	},
+
+  update: function()
+  {
+  },
   
-  render: function()
+  render: function(time)
   {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     Object.each(this.objects, function(item) {

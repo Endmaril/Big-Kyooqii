@@ -18,7 +18,7 @@
 
 var Monster = new Class({
 
-    Extends: DisplayableObject,
+    Extends: ImageObject,
 
     name: '',
 

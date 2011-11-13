@@ -23,11 +23,10 @@ var TitleOptions = new Class({
     initialize: function(app)
     {
         this.parent(app);
-    },
-  
-    update: function()
-    {
-
+        
+        this.objects.text1 = new TextObject({
+            content: 'Fucking options'
+        });
     },
 
     keyDown: function(event)
@@ -38,16 +37,7 @@ var TitleOptions = new Class({
             return false;
         }
 
-        return false;
-    },
-  
-    render: function(ctx, time)
-    {
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'bottom';
-        ctx.font = '20pt Courier';
-        ctx.fillStyle = 'rgb(0, 0, 0)';
-        ctx.fillText("Fucking Options", 0, 30);
+        return true;
     }
 
 });

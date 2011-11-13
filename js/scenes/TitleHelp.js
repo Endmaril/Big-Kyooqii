@@ -23,11 +23,10 @@ var TitleHelp = new Class({
     initialize: function(params)
     {
         this.parent(params);
-    },
-  
-    update: function()
-    {
-
+        
+        this.objects.text1 = new TextObject({
+            content: 'Fucking help'
+        });
     },
 
     keyDown: function(event)
@@ -38,16 +37,7 @@ var TitleHelp = new Class({
             return false;
         }
 
-        return false;
-    },
-  
-    render: function(ctx, time)
-    {
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'bottom';
-        ctx.font = '20pt Courier';
-        ctx.fillStyle = 'rgb(0, 0, 0)';
-        ctx.fillText("Fucking Manual", 0, 30);
+        return true;
     }
 
 });

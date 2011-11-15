@@ -46,6 +46,7 @@ var Application = new Class({
     invalidate: function(){
         var pThis = this;
         window.requestAnimFrame(function(time){
+            pThis.scene.update(time);
             pThis.render(time);
         });
     },

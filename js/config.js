@@ -17,7 +17,7 @@
 */
 
 // Root directory, change it for your own ;).
-var $ROOT_DIR = '/Users/jeremygabriele/Documents/git/bigkyooqii/'
+var $ROOT_DIR = '../'
 
 var $IMG_DIR = $ROOT_DIR + 'data/images/'
 var $SOUNDS_DIR = $ROOT_DIR + 'data/sounds/'

@@ -42,7 +42,7 @@ var Game = new Class({
         });
     },
   
-    update: function(time)
+    update: function(dt)
     {
         var kyooqii = this.objects.kyooqii;
         var monster1 = this.objects.monster1;

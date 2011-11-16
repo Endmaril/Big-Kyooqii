@@ -69,7 +69,12 @@ var Title = new Class({
             imgPath: $IMG_DIR+'selector.png'
         });
         
-        this.objects.selector.y = 230 + this.selected*40;
+        if ( Title.lastSelected ) {
+          this.objects.selector.y = 230 + Title.lastSelected*40;
+          this.selected = Title.lastSelected;
+        }
+        else
+          this.objects.selector.y = 230 + this.selected*40;
     },
 
     keyDown: function(event)
@@ -98,9 +103,12 @@ var Title = new Class({
         }
         else if(event.key == 'enter')
         {
+            Title.lastSelected = this.selected;
             this.menus[this.selected].callback();
         }
 
         return true;
     }
 });
+
+Title.lastSelected = 0;

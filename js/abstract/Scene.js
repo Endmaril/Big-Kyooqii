@@ -63,10 +63,12 @@ var Scene = new Class({
 
     render: function(time)
     {
+        console.log("draw");
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         var objs = [];
         Object.each(this.objects, function(item) {
-            objs.push(item);
+            if (item != this.objects.kyooqii) // VIRER, SPECIFIQUE A BIG KYOOQII
+                objs.push(item);
         }, this);
 
         objs.sort(function(a, b){
@@ -76,6 +78,8 @@ var Scene = new Class({
         {
             item.draw(this.ctx);
         }, this);
+        
+        if (this.objects.kyooqii) this.objects.kyooqii.draw(this.ctx); // VIRER, SPECIFIQUE A BIG KYOOQII
 
         Object.each(this.popups, function(popup) {
             if(popup.remaining > -popup.fadeoutduration) {

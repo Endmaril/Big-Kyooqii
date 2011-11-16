@@ -26,7 +26,11 @@ var Kyooqii = new Class({
     att: 0,
     def: 0,
     speed: 0,
-    radius: 1,
+    lightRadius: 100,
+    fuel: 100,
+    imgEmpty: null,
+    imgHalf: null,
+    imgFull: null,
 
     initialize: function(params)
     {
@@ -39,7 +43,39 @@ var Kyooqii = new Class({
         if (params.def) this.def = params.def;
         if (params.speed) this.speed = params.speed;
         
-        if (params.radius) this.radius = params.radius;
+        if (params.lightRadius) this.lightRadius = params.lightRadius;
+        if (params.fuel) this.fuel = params.fuel;
+        
+        if (params.imgFull)
+        {
+            this.imgFull = new Image();
+            this.imgFull.ready = false;
+            this.imgFull.src = params.imgFull;
+            this.imgFull.onload = function (){
+                this.ready = true;
+            };
+        }
+        
+        this.img = this.imgFull;
+        
+        if (params.imgEmpty)
+        {
+            this.imgEmpty = new Image();
+            this.imgEmpty.ready = false;
+            this.imgEmpty.src = params.imgEmpty;
+            this.imgEmpty.onload = function (){
+                this.ready = true;
+            };
+        }
+        if (params.imgHalf)
+        {
+            this.imgHalf = new Image();
+            this.imgHalf.ready = false;
+            this.imgHalf.src = params.imgHalf;
+            this.imgHalf.onload = function (){
+                this.ready = true;
+            };
+        }
     },
     
     move: function(x, y) {
@@ -53,6 +89,49 @@ var Kyooqii = new Class({
     
     collide: function(other) {
       return (this.dist(other) <= (this.radius+other.radius));
+    },
+    
+    canSee: function(other) {
+      return (this.dist(other) <= (this.lightRadius+other.radius));
+    },
+    
+    setImage: function() { // return true <=> we changed this.img
+        if (this.fuel < 20)
+        {
+            if (this.img != this.imgEmpty)
+            {
+                this.img = this.imgEmpty;
+                console.log("state changed !");
+                return true;
+            }
+        }
+        else if (this.fuel < 70)
+        {
+            if (this.img != this.imgHalf)
+            {
+                this.img = this.imgHalf;
+                console.log("state changed !");
+                return true;
+            }
+        }
+        else
+            if (this.img != this.imgFull)
+            {
+                this.img = this.imgFull;
+                console.log("state changed !");
+                return true;
+            }
+        return false;
+    },
+    
+    decFuel: function(unfill) {
+        if (this.fuel > 0) this.fuel-=unfill;
+    },
+    
+    incFuel: function(refill) {
+        if (this.fuel+refill <= 100)
+            this.fuel+=refill;
+        else this.fuel = 100;
     },
     
     log: function(){

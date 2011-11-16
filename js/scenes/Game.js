@@ -32,12 +32,12 @@ var Game = new Class({
     {
         this.parent(app);
         
-        this.room = new Room({});
-        
+        // initialize the room
+        this.room = new Room({});        
         this.room.addMonster(new Monster({
             name: 'Roger',
             pv: 10,
-            speed: 2.3,
+            speed: 1,
             radius: 18,
             aimScope: 200,
             imgPath: $IMG_DIR + 'monster.png'
@@ -47,22 +47,22 @@ var Game = new Class({
             x: 500,
             y: 500,
             pv: 10,
-            speed: 2.3,
+            speed: 1,
             radius: 18,
-            aimScope: 130,
+            aimScope: 100,
             imgPath: $IMG_DIR + 'monster.png'
         }));
-        
         this.room.addBairk(new Bairk({
             name: 'Bairky',
             x: 500,
             y: 300,
-            speed: 2,
+            speed: 1.5,
             radius: 18,
-            aimScope: 300,
+            aimScope: 130,
             imgPath: $IMG_DIR + 'hero.png'
         }));
         
+        // put every displayable objects form the room to the scene.
         var pThis = this;
         this.room.monsters.each(function(element){
           pThis.objects[element.name] = element;
@@ -77,11 +77,13 @@ var Game = new Class({
             pv: 10,
             x: 300,
             y: 300,
-            speed: 4,
+            speed: 2.5,
             radius: 18,
-            imgPath: $IMG_DIR + 'hero.png'
+            imgPath: $IMG_DIR + 'fullLight.png',
+            imgFull: $IMG_DIR + 'fullLight.png',
+            imgHalf: $IMG_DIR + 'halfLight.png',
+            imgEmpty: $IMG_DIR + 'emptyLight.png'
         });
-        
         
     },
   
@@ -90,21 +92,43 @@ var Game = new Class({
         var kyooqii = this.objects.kyooqii;
         var monster1 = this.objects.monster1;
         
+        // keyboard events
         if (this.move.left) kyooqii.move(-1,0);
         if (this.move.right) kyooqii.move(1,0);
         if (this.move.up) kyooqii.move(0,-1);
         if (this.move.down) kyooqii.move(0,1);
-
         if(this.move.left || this.move.right || this.move.up || this.move.down)
             this.app.invalidate();
         
+        // monsters logic
         this.room.monsters.each(function(element) {
           var dist = kyooqii.dist(element);
           if ((dist<=element.aimScope) && !(kyooqii.collide(element))) {
-            console.log(element.name+" bouge !");
             element.move((kyooqii.x-element.x)/dist, (kyooqii.y-element.y)/dist);
           }
         });
+        
+        // bairks logic
+        this.room.bairks.each(function(element) {
+          var dist = kyooqii.dist(element);
+          if ((dist<=element.aimScope) && !(kyooqii.collide(element))) {
+            element.move(-(kyooqii.x-element.x)/dist, -(kyooqii.y-element.y)/dist);
+          }
+        });
+        
+        // invalidate() when something appear
+        Object.each(this.objects, function(element) {
+            if (element != kyooqii) {
+                if (kyooqii.canSee(element)) {
+                    this.app.invalidate();
+                }
+            }
+        }, this);
+        
+        // invalidate() when fuel cross limit
+        
+        kyooqii.decFuel(0.01);
+        if (kyooqii.setImage()) this.app.invalidate();
     },
 
     keyDown: function(event)
@@ -128,6 +152,11 @@ var Game = new Class({
         if (event.key == 'left')
         {
             this.move.left = true;
+            weDidNothing = false;
+        }
+        if (event.key == 'space')
+        {
+            this.objects.kyooqii.decFuel();
             weDidNothing = false;
         }
         if (event.key == 'right')

@@ -71,11 +71,11 @@ var Title = new Class({
         });
         
         if ( Title.lastSelected ) {
-          this.objects.selector.y = 230 + Title.lastSelected*40;
+          this.objects.selector.y = 240 + Title.lastSelected*40;
           this.selected = Title.lastSelected;
         }
         else
-          this.objects.selector.y = 230 + this.selected*40;
+          this.objects.selector.y = 240 + this.selected*40;
     },
 
     keyDown: function(event)

@@ -21,6 +21,9 @@ var ImageObject = new Class({
     Extends: DisplayableObject,
     
     imgPath: '',
+    width: 0,
+    height: 0,
+    radius: 1,
 	
 	initialize: function(params){
         this.parent(params);
@@ -32,15 +35,19 @@ var ImageObject = new Class({
             this.img = new Image();
             this.img.ready = false;
             this.img.src = this.imgPath;
+            this.width = this.img.width;
+            this.height = this.img.height;
+            
             this.img.onload = function (){
                 this.ready = true;
             };
         } else {
             console.log("invalid imgPath for " + this.name);
         }
+        if (params.radius) this.radius = params.radius;
 	},
 	
 	draw: function(ctx){
-        ctx.drawImage(this.img, Math.round(this.x / 2) * 2, Math.round(this.y / 2) * 2);
+        ctx.drawImage(this.img, Math.round((this.x-this.img.width/2) / 2) * 2, Math.round((this.y-this.img.height/2) / 2) * 2);
 	}
 });

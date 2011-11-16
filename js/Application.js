@@ -20,6 +20,8 @@ var Application = new Class({
     scene: null,
     context: null,
     canvas: null,
+    invalidated: false,
+    timeLastFrame: 0,
 
     initialize: function(){
         this.canvas = document.id('game-canvas');
@@ -35,6 +37,8 @@ var Application = new Class({
         document.addEvent('keyup', function(event){
             if(this.scene.keyUp) this.scene.keyUp(event);
         }.bind(this));
+
+        this.update();
     },
 
     setScene: function(scene)
@@ -44,10 +48,21 @@ var Application = new Class({
     },
 
     invalidate: function(){
+        this.invalidated = true;
+    },
+
+    update: function(){
         var pThis = this;
         window.requestAnimFrame(function(time){
             pThis.scene.update(time);
-            pThis.render(time);
+
+            if(pThis.invalidated)
+            {
+                pThis.render(time);
+                this.invalidated = false;
+            }
+
+            pThis.update(time);
         });
     },
 

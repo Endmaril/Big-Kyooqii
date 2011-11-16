@@ -25,8 +25,6 @@ var Monster = new Class({
     pv: 0,
     att: 0,
     def: 0,
-    x: 30,
-    y: 30,
     speed: 0,
 
     initialize: function(params)

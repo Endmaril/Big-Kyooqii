@@ -31,10 +31,18 @@ var Game = new Class({
             pv: 10,
             imgPath: $IMG_DIR + 'monster.png'
         });
+        
+        this.objects.kyooqii = new Kyooqii({
+            pv: 10,
+            x: 200,
+            y: 200,
+            imgPath: $IMG_DIR + 'hero.png'
+        });
     },
   
     update: function()
     {
+        console.log("update");
         this.objects.monster1.x -= (this.move.left)? 10 : 0;
         this.objects.monster1.x += (this.move.right)? 10 : 0;
         this.objects.monster1.y -= (this.move.up)? 10 : 0;

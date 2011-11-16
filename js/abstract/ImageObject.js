@@ -41,6 +41,6 @@ var ImageObject = new Class({
 	},
 	
 	draw: function(ctx){
-        ctx.drawImage(this.img, this.x, this.y);
+        ctx.drawImage(this.img, Math.round(this.x / 2) * 2, Math.round(this.y / 2) * 2);
 	}
 });

@@ -54,15 +54,17 @@ var Application = new Class({
     update: function(){
         var pThis = this;
         window.requestAnimFrame(function(time){
-            pThis.scene.update(time);
+            var dt = this.timeLastFrame == 0 ? 0 : 0.001 * (time - pThis.timeLastFrame);
+            pThis.scene.update(dt);
 
             if(pThis.invalidated)
             {
-                pThis.render(time);
+                pThis.render();
                 this.invalidated = false;
             }
 
-            pThis.update(time);
+            pThis.timeLastFrame = time;
+            pThis.update();
         });
     },
 

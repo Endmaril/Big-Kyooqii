@@ -64,7 +64,16 @@ var Scene = new Class({
     render: function(time)
     {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        var objs = [];
         Object.each(this.objects, function(item) {
+            objs.push(item);
+        }, this);
+
+        objs.sort(function(a, b){
+            return a.y - b.y;
+        });
+        Array.each(objs, function(item)
+        {
             item.draw(this.ctx);
         }, this);
 

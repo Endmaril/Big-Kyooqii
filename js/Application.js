@@ -56,19 +56,19 @@ var Application = new Class({
     {
         var pThis = this;
         window.requestAnimFrame(function(time){
-            var dt = this.timeLastFrame == 0 ? 0 : 0.001 * (time - pThis.timeLastFrame);
-            pThis.scene.update(dt);
+            var dt = this.timeLastFrame == 0 ? 0 : 0.001 * (time - this.timeLastFrame);
+            this.scene.update(dt);
 
-            if(pThis.invalidated)
+            if(this.invalidated)
             {
                 console.info('invalidé');
-                pThis.render();
-                pThis.invalidated = false;
+                this.render();
+                this.invalidated = false;
             }
 
-            pThis.timeLastFrame = time;
-            pThis.update();
-        });
+            this.timeLastFrame = time;
+            this.update();
+        }.bind(this));
     },
 
     render: function(time)

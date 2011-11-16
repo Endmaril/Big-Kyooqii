@@ -15,3 +15,57 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+var Kyooqii = new Class({
+
+    Extends: ImageObject,
+
+    name: 'Kyooqii',
+
+    pv: 0,
+    att: 0,
+    def: 0,
+    speed: 0,
+    radius: 1,
+
+    initialize: function(params)
+    {
+        this.parent(params);
+        
+        if (params.name) this.name = params.name; // debug
+
+        if (params.pv) this.pv = params.pv;
+        if (params.att) this.att = params.att;
+        if (params.def) this.def = params.def;
+        if (params.speed) this.speed = params.speed;
+        
+        if (params.radius) this.radius = params.radius;
+    },
+    
+    move: function(x, y) {
+      this.x += x*this.speed;
+      this.y += y*this.speed;
+    },
+    
+    dist: function(other) {
+      return Math.sqrt(Math.pow((this.x-other.x),2) + Math.pow((this.y-other.y),2));
+    },
+    
+    collide: function(other) {
+      return (this.dist(other) <= (this.radius+other.radius));
+    },
+    
+    log: function(){
+        console.log(this.name + ':');
+        
+        console.log(this.pv + 'pv');
+        console.log(this.att + 'att');
+        console.log(this.def + 'def');
+        console.log('coord: (' + this.x + ',' + this.y + ')');
+        console.log('speed: ' + this.speed);
+        console.log('img: "' + this.imgPath + '", ' +
+            this.width + 'x' + this.height);
+    }
+
+
+});

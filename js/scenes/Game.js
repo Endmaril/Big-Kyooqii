@@ -20,28 +20,91 @@ var Game = new Class({
   
     Extends: Scene,
     
-    move: {},
+    room: null,
+    
+    // game vars
+    nbBairks: 0,
+    nbKeys: 0,
+    
+    move: {}, // keyboard events
   
     initialize: function(app)
     {
         this.parent(app);
         
-        this.objects.monster1 = new Monster({
+        this.room = new Room({});
+        
+        this.room.addMonster(new Monster({
             name: 'Roger',
             pv: 10,
+            speed: 2.3,
+            radius: 18,
+            aimScope: 200,
             imgPath: $IMG_DIR + 'monster.png'
+        }));
+        this.room.addMonster(new Monster({
+            name: 'Bob',
+            x: 500,
+            y: 500,
+            pv: 10,
+            speed: 2.3,
+            radius: 18,
+            aimScope: 130,
+            imgPath: $IMG_DIR + 'monster.png'
+        }));
+        
+        this.room.addBairk(new Bairk({
+            name: 'Bairky',
+            x: 500,
+            y: 300,
+            speed: 2,
+            radius: 18,
+            aimScope: 300,
+            imgPath: $IMG_DIR + 'hero.png'
+        }));
+        
+        var pThis = this;
+        this.room.monsters.each(function(element){
+          pThis.objects[element.name] = element;
         });
+        
+        this.room.bairks.each(function(element){
+          pThis.objects[element.name] = element;
+        });
+        
+        // hero
+        this.objects.kyooqii = new Kyooqii({
+            pv: 10,
+            x: 300,
+            y: 300,
+            speed: 4,
+            radius: 18,
+            imgPath: $IMG_DIR + 'hero.png'
+        });
+        
+        
     },
   
     update: function(dt)
     {
-        this.objects.monster1.x -= (this.move.left)? 100*dt : 0;
-        this.objects.monster1.x += (this.move.right)? 100*dt : 0;
-        this.objects.monster1.y -= (this.move.up)? 100*dt : 0;
-        this.objects.monster1.y += (this.move.down)? 100*dt : 0;
+        var kyooqii = this.objects.kyooqii;
+        var monster1 = this.objects.monster1;
+        
+        if (this.move.left) kyooqii.move(-1,0);
+        if (this.move.right) kyooqii.move(1,0);
+        if (this.move.up) kyooqii.move(0,-1);
+        if (this.move.down) kyooqii.move(0,1);
 
         if(this.move.left || this.move.right || this.move.up || this.move.down)
             this.app.invalidate();
+        
+        this.room.monsters.each(function(element) {
+          var dist = kyooqii.dist(element);
+          if ((dist<=element.aimScope) && !(kyooqii.collide(element))) {
+            console.log(element.name+" bouge !");
+            element.move((kyooqii.x-element.x)/dist, (kyooqii.y-element.y)/dist);
+          }
+        });
     },
 
     keyDown: function(event)

@@ -15,3 +15,50 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+
+var Room = new Class({
+
+    name: 'Room',
+
+    monsters: [],
+    objects: [],
+    bairks: [],
+
+    initialize: function(params)
+    {
+        if (params.name) this.name = params.name; // debug
+        
+        // utile ?
+        if (params.monsters) this.monsters = params.monsters;
+        if (params.objects) this.objects = params.objects;
+        if (params.bairks) this.bairks = params.bairks;
+    },
+    
+    addMonster: function(monster) {
+      this.monsters = this.monsters.append(Array.from(monster));
+    },
+    
+    addObject: function(object) {
+      this.objects = this.objects.append(Array.from(object));
+    },
+    
+    addBairk: function(bairk) {
+      this.bairks = this.bairks.append(Array.from(bairk));
+    },
+    
+    log: function(){
+        console.log(this.name + ':');
+        
+        console.log(this.pv + 'pv');
+        console.log(this.att + 'att');
+        console.log(this.def + 'def');
+        console.log('coord: (' + this.x + ',' + this.y + ')');
+        console.log('speed: ' + this.speed);
+        console.log('img: "' + this.imgPath + '", ' +
+            this.width + 'x' + this.height);
+    }
+
+
+});
+

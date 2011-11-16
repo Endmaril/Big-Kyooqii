@@ -40,13 +40,16 @@ var Game = new Class({
         });
     },
   
-    update: function()
+    update: function(time)
     {
         console.log("update");
         this.objects.monster1.x -= (this.move.left)? 10 : 0;
         this.objects.monster1.x += (this.move.right)? 10 : 0;
         this.objects.monster1.y -= (this.move.up)? 10 : 0;
         this.objects.monster1.y += (this.move.down)? 10 : 0;
+
+        if(this.move.left || this.move.right || this.move.up || this.move.down)
+            this.app.invalidate();
     },
 
     keyDown: function(event)
@@ -82,7 +85,6 @@ var Game = new Class({
         {
             return true;
         } else {
-            this.app.invalidate();
             return false;
         }
 

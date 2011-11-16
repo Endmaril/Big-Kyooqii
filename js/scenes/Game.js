@@ -29,6 +29,7 @@ var Game = new Class({
         this.objects.monster1 = new Monster({
             name: 'Roger',
             pv: 10,
+            speed: 2.3,
             imgPath: $IMG_DIR + 'monster.png'
         });
         
@@ -36,20 +37,30 @@ var Game = new Class({
             pv: 10,
             x: 200,
             y: 200,
+            speed: 4,
             imgPath: $IMG_DIR + 'hero.png'
         });
     },
   
     update: function(time)
     {
-        console.log("update");
-        this.objects.monster1.x -= (this.move.left)? 10 : 0;
-        this.objects.monster1.x += (this.move.right)? 10 : 0;
-        this.objects.monster1.y -= (this.move.up)? 10 : 0;
-        this.objects.monster1.y += (this.move.down)? 10 : 0;
+        var kyooqii = this.objects.kyooqii;
+        var monster1 = this.objects.monster1;
+        
+        kyooqii.x -= (this.move.left)? kyooqii.speed : 0;
+        kyooqii.x += (this.move.right)? kyooqii.speed : 0;
+        kyooqii.y -= (this.move.up)? kyooqii.speed : 0;
+        kyooqii.y += (this.move.down)? kyooqii.speed : 0;
 
         if(this.move.left || this.move.right || this.move.up || this.move.down)
             this.app.invalidate();
+            
+        var dist = Math.sqrt(Math.pow((kyooqii.x-monster1.x),2) + Math.pow((kyooqii.y-monster1.y),2));
+        
+        if (dist <= 250) {
+          monster1.x += (kyooqii.x-monster1.x) / dist * monster1.speed;
+          monster1.y += (kyooqii.y-monster1.y) / dist * monster1.speed;
+        }
     },
 
     keyDown: function(event)

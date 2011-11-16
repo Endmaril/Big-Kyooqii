@@ -34,11 +34,9 @@ var Monster = new Class({
         if (params.name) this.name = params.name; // debug
 
         if (params.pv) this.pv = params.pv;
-        if (params.att) this.att = params.pv;
-        if (params.def) this.def = params.pv;
-        if (params.x) this.x = params.pv;
-        if (params.y) this.y = params.pv;
-        if (params.speed) this.speed = params.pv;
+        if (params.att) this.att = params.att;
+        if (params.def) this.def = params.def;
+        if (params.speed) this.speed = params.speed;
     },
     
     log: function(){

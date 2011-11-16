@@ -47,11 +47,13 @@ var Application = new Class({
         this.invalidate();
     },
 
-    invalidate: function(){
+    invalidate: function()
+    {
         this.invalidated = true;
     },
 
-    update: function(){
+    update: function()
+    {
         var pThis = this;
         window.requestAnimFrame(function(time){
             var dt = this.timeLastFrame == 0 ? 0 : 0.001 * (time - pThis.timeLastFrame);
@@ -68,7 +70,8 @@ var Application = new Class({
         });
     },
 
-    render: function(time){
+    render: function(time)
+    {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.scene.render(this.context, time);

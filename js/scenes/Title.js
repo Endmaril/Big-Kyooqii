@@ -63,6 +63,7 @@ var Title = new Class({
             });
             baseY += 40;
         }, this);
+
         
         this.objects.selector = new ImageObject({
             x: this.canvas.width/2.75,
@@ -103,4 +104,5 @@ var Title = new Class({
 
         return true;
     }
+
 });

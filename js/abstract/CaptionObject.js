@@ -15,8 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-var TextObject = new Class({
+var CaptionObject = new Class({
 	
     Extends: DisplayableObject,
     
@@ -29,21 +28,61 @@ var TextObject = new Class({
 	initialize: function(params)
     {
         this.parent(params);
-        
+
 		if (params.content) this.content = params.content;
 		if (params.textAlign) this.textAlign = params.textAlign;
 		if (params.textBaseline) this.textBaseline = params.textBaseline;
 		if (params.font) this.font = params.font;
 		if (params.color) this.color = params.color;
 	},
+
+    bubble: function(ctx, w)
+    {
+        ctx.beginPath();
+        var x = this.x,
+            y = this.y,
+            h = 50;
+
+        ctx.moveTo(0, 0);
+        ctx.quadraticCurveTo(20, -5,
+                             20, -25);
+        ctx.quadraticCurveTo(-15, -25,
+                             -15, -25 - h / 2);
+        ctx.quadraticCurveTo(-15, -25 - h,
+                             15 + w / 2, -25 - h);
+        ctx.quadraticCurveTo(15 + w, -25 - h,
+                             15 + w, -25 - h / 2);
+        ctx.quadraticCurveTo(15 + w, -25,
+                             35, -25);
+        ctx.quadraticCurveTo(35, -5,
+                             0, 0);
+    },
 	
 	draw: function(ctx)
     {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+
+        ctx.textAlign = this.textAlign;
+        ctx.textBaseline = this.textBaseline;
+        ctx.font = this.font;
+        var w = ctx.measureText(this.content, 0, -35).width;
+
+        ctx.fillStyle = 'white';
+        this.bubble(ctx, w);
+        ctx.fill();
+
+        ctx.fillStyle = 'black';
+        this.bubble(ctx, w);
+        ctx.stroke();
+
         ctx.textAlign = this.textAlign;
         ctx.textBaseline = this.textBaseline;
         ctx.font = this.font;
         ctx.fillStyle = this.color;
-        ctx.fillText(this.content, this.x, this.y);
+        ctx.fillText(this.content, 0, -35);
+
+        ctx.restore();
 	}
 
 });

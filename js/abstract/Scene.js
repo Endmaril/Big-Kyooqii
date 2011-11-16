@@ -14,35 +14,69 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+    */
 
 var Scene = new Class({
-  
-  objects : {},
-  canvas : null,
-  ctx : null,
-  app : null,
-  
-  initialize: function(app){
+
+    objects : {},
+    popups: [],
+    canvas : null,
+    ctx : null,
+    app : null,
+
+    initialize: function(app)
+    {
         if (app) {
             this.app = app;
             this.canvas = app.canvas;
             this.ctx = app.context;
         } else {
-            console.log("Pas d'app !!!");
+            console.error("Pas d'app !!!");
         }
-	},
+    },
 
-  update: function()
-  {
-  },
-  
-  render: function(time)
-  {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    Object.each(this.objects, function(item) {
-        item.draw(this.ctx);
-    }, this);
-  }
-  
+    update: function(dt)
+    {
+        Object.each(this.objects, function(item) {
+            if(item.update)
+                item.update(dt);
+        }, this);
+
+        Object.each(this.popups, function(popup) {
+            if(popup.remaining > -popup.fadeoutduration)
+            {
+                popup.remaining -= dt;
+            }
+            else
+            {
+                //TODO: remove popup from array
+                this.app.invalidate();
+            }
+        }, this);
+    },
+
+    popup: function(obj)
+    {
+        popup = {object: obj, duration: 5.0, remaining: 5.0, fadeoutduration: 0.25};
+        this.popups.push(popup);
+    },
+
+    render: function(time)
+    {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        Object.each(this.objects, function(item) {
+            item.draw(this.ctx);
+        }, this);
+
+        Object.each(this.popups, function(popup) {
+            if(popup.remaining > -popup.fadeoutduration) {
+                if(popup.remaining < 0)
+                    this.ctx.globalAlpha = 1 + popup.remaining / popup.fadeoutduration;
+
+                popup.object.draw(this.ctx);
+                this.ctx.globalAlpha = 1;
+            }
+        }, this);
+    }
+
 });

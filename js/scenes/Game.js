@@ -61,14 +61,24 @@ var Game = new Class({
             aimScope: 130,
             imgPath: $IMG_DIR + 'hero.png'
         }));
+        this.room.addItem(new Item({
+            name: 'FuelBottle30',
+            x: 100,
+            y: 500,
+            carac: 'Fuel',
+            value: 30,
+            imgPath: $IMG_DIR + 'hero.png'
+        }));
         
         // put every displayable objects form the room to the scene.
         var pThis = this;
         this.room.monsters.each(function(element){
           pThis.objects[element.name] = element;
         });
-        
         this.room.bairks.each(function(element){
+          pThis.objects[element.name] = element;
+        });
+        this.room.items.each(function(element){
           pThis.objects[element.name] = element;
         });
         
@@ -100,7 +110,7 @@ var Game = new Class({
         if(this.move.left || this.move.right || this.move.up || this.move.down)
             this.app.invalidate();
         
-        // monsters logic
+        // Monsters logic
         this.room.monsters.each(function(element) {
           var dist = kyooqii.dist(element);
           if ((dist<=element.aimScope) && !(kyooqii.collide(element))) {
@@ -108,13 +118,24 @@ var Game = new Class({
           }
         });
         
-        // bairks logic
+        // Bairks logic
         this.room.bairks.each(function(element) {
           var dist = kyooqii.dist(element);
           if ((dist<=element.aimScope) && !(kyooqii.collide(element))) {
             element.move(-(kyooqii.x-element.x)/dist, -(kyooqii.y-element.y)/dist);
           }
         });
+        
+        // Items logic
+        this.room.items.each(function(element) {
+          var dist = kyooqii.dist(element);
+          if (kyooqii.collide(element)) {
+            element.use(kyooqii);
+            this.room.items = this.room.items.erase(element);
+            delete this.objects[element.name];
+            this.app.invalidate();
+          }
+        }, this);
         
         // invalidate() when something appear
         Object.each(this.objects, function(element) {
@@ -126,7 +147,6 @@ var Game = new Class({
         }, this);
         
         // invalidate() when fuel cross limit
-        
         kyooqii.decFuel(0.01);
         if (kyooqii.setImage()) this.app.invalidate();
     },

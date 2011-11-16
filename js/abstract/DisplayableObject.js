@@ -21,11 +21,13 @@ var DisplayableObject = new Class({
 	name: '',
 	x: 50,
 	y: 50,
+    type: 'ImageObject',
 	
 	initialize: function(params){
 		if (params.name) this.name = params.name;
 		if (params.x) this.x = params.x;
 		if (params.y) this.y = params.y;
+		if (params.type) this.type = params.type;
 	},
 	
 	draw: function(ctx){

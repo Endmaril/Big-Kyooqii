@@ -80,6 +80,8 @@ var Scene = new Class({
         }, this);
         
         if (this.objects.kyooqii) this.objects.kyooqii.draw(this.ctx); // VIRER, SPECIFIQUE A BIG KYOOQII
+        
+        //if (this.objects.FuelBottle30) console.log("bottle"); // VIRER, SPECIFIQUE A BIG KYOOQII
 
         Object.each(this.popups, function(popup) {
             if(popup.remaining > -popup.fadeoutduration) {

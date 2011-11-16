@@ -15,3 +15,35 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+var Item = new Class({
+
+    Extends: ImageObject,
+    
+    name: '',
+
+    carac: '',
+    value: 0,
+
+    initialize: function(params)
+    {
+        this.parent(params);
+        
+        if (params.name) this.name = params.name; // debug
+
+        if (params.carac) this.carac = params.carac;
+        if (params.value) this.value = params.value;
+    },
+    
+    use: function(user) { // if carac="Fuel", needs a function setFuel(val)
+      user["inc"+this.carac](this.value);
+    },
+    
+    
+    log: function(){
+        console.log(this.name + ':');
+        console.log('Description : donne '+this.value+' en '+this.carac+'.');
+    }
+
+
+});

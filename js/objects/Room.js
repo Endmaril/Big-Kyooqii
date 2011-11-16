@@ -22,7 +22,7 @@ var Room = new Class({
     name: 'Room',
 
     monsters: [],
-    objects: [],
+    items: [],
     bairks: [],
 
     initialize: function(params)
@@ -39,8 +39,8 @@ var Room = new Class({
       this.monsters = this.monsters.append(Array.from(monster));
     },
     
-    addObject: function(object) {
-      this.objects = this.objects.append(Array.from(object));
+    addItem: function(item) {
+      this.items = this.items.append(Array.from(item));
     },
     
     addBairk: function(bairk) {

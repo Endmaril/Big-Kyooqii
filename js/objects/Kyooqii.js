@@ -26,7 +26,7 @@ var Kyooqii = new Class({
     att: 0,
     def: 0,
     speed: 0,
-    lightRadius: 100,
+    lightRadius: 120,
     fuel: 100,
     imgEmpty: null,
     imgHalf: null,
@@ -56,8 +56,6 @@ var Kyooqii = new Class({
             };
         }
         
-        this.img = this.imgFull;
-        
         if (params.imgEmpty)
         {
             this.imgEmpty = new Image();
@@ -76,6 +74,8 @@ var Kyooqii = new Class({
                 this.ready = true;
             };
         }
+        
+        this.img = this.imgFull;
     },
     
     move: function(x, y) {
@@ -101,7 +101,7 @@ var Kyooqii = new Class({
             if (this.img != this.imgEmpty)
             {
                 this.img = this.imgEmpty;
-                console.log("state changed !");
+                this.lightRadius = 30;
                 return true;
             }
         }
@@ -110,7 +110,7 @@ var Kyooqii = new Class({
             if (this.img != this.imgHalf)
             {
                 this.img = this.imgHalf;
-                console.log("state changed !");
+                this.lightRadius = 80;
                 return true;
             }
         }
@@ -118,7 +118,7 @@ var Kyooqii = new Class({
             if (this.img != this.imgFull)
             {
                 this.img = this.imgFull;
-                console.log("state changed !");
+                this.lightRadius = 120;
                 return true;
             }
         return false;

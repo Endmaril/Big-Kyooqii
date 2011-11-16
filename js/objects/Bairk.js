@@ -15,3 +15,41 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+var Bairk = new Class({
+
+    Extends: ImageObject,
+
+    name: 'Bairk',
+
+    aimScope: 150,
+    speed: 0,
+    radius: 0,
+
+    initialize: function(params)
+    {
+        this.parent(params);
+        
+        if (params.name) this.name = params.name; // debug
+
+        if (params.aimScope) this.aimScope = params.aimScope;
+        if (params.speed) this.speed = params.speed;
+        if (params.radius) this.radius = params.radius;
+    },
+    
+    move: function(x, y) {
+      this.x += x*this.speed;
+      this.y += y*this.speed;
+    },
+    
+    log: function(){
+        console.log(this.name + ':');
+        
+        console.log('coord: (' + this.x + ',' + this.y + ')');
+        console.log('speed: ' + this.speed);
+        console.log('img: "' + this.imgPath + '", ' +
+            this.width + 'x' + this.height);
+    }
+
+
+});

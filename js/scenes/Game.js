@@ -20,6 +20,8 @@ var Game = new Class({
   
     Extends: Scene,
     
+    room: null,
+    
     // game vars
     nbBairks: 0,
     nbKeys: 0,
@@ -30,15 +32,47 @@ var Game = new Class({
     {
         this.parent(app);
         
-        this.objects.monster1 = new Monster({
+        this.room = new Room({});
+        
+        this.room.addMonster(new Monster({
             name: 'Roger',
             pv: 10,
             speed: 2.3,
             radius: 18,
             aimScope: 200,
             imgPath: $IMG_DIR + 'monster.png'
+        }));
+        this.room.addMonster(new Monster({
+            name: 'Bob',
+            x: 500,
+            y: 500,
+            pv: 10,
+            speed: 2.3,
+            radius: 18,
+            aimScope: 130,
+            imgPath: $IMG_DIR + 'monster.png'
+        }));
+        
+        this.room.addBairk(new Bairk({
+            name: 'Bairky',
+            x: 500,
+            y: 300,
+            speed: 2,
+            radius: 18,
+            aimScope: 300,
+            imgPath: $IMG_DIR + 'hero.png'
+        }));
+        
+        var pThis = this;
+        this.room.monsters.each(function(element){
+          pThis.objects[element.name] = element;
         });
         
+        this.room.bairks.each(function(element){
+          pThis.objects[element.name] = element;
+        });
+        
+        // hero
         this.objects.kyooqii = new Kyooqii({
             pv: 10,
             x: 300,
@@ -47,6 +81,8 @@ var Game = new Class({
             radius: 18,
             imgPath: $IMG_DIR + 'hero.png'
         });
+        
+        
     },
   
     update: function(dt)
@@ -61,11 +97,14 @@ var Game = new Class({
 
         if(this.move.left || this.move.right || this.move.up || this.move.down)
             this.app.invalidate();
-            
-        var dist = kyooqii.dist(monster1);
-        if ((dist<=monster1.aimScope) && !(kyooqii.collide(monster1))) {
-          monster1.move((kyooqii.x-monster1.x)/dist, (kyooqii.y-monster1.y)/dist);
-        }
+        
+        this.room.monsters.each(function(element) {
+          var dist = kyooqii.dist(element);
+          if ((dist<=element.aimScope) && !(kyooqii.collide(element))) {
+            console.log(element.name+" bouge !");
+            element.move((kyooqii.x-element.x)/dist, (kyooqii.y-element.y)/dist);
+          }
+        });
     },
 
     keyDown: function(event)

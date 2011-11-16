@@ -25,7 +25,9 @@ var Monster = new Class({
     pv: 0,
     att: 0,
     def: 0,
+    aimScope: 150,
     speed: 0,
+    radius: 0,
 
     initialize: function(params)
     {
@@ -36,7 +38,14 @@ var Monster = new Class({
         if (params.pv) this.pv = params.pv;
         if (params.att) this.att = params.att;
         if (params.def) this.def = params.def;
+        if (params.aimScope) this.aimScope = params.aimScope;
         if (params.speed) this.speed = params.speed;
+        if (params.radius) this.radius = params.radius;
+    },
+    
+    move: function(x, y) {
+      this.x += x*this.speed;
+      this.y += y*this.speed;
     },
     
     log: function(){

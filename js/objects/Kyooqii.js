@@ -26,6 +26,7 @@ var Kyooqii = new Class({
     att: 0,
     def: 0,
     speed: 0,
+    radius: 1,
 
     initialize: function(params)
     {
@@ -37,6 +38,21 @@ var Kyooqii = new Class({
         if (params.att) this.att = params.att;
         if (params.def) this.def = params.def;
         if (params.speed) this.speed = params.speed;
+        
+        if (params.radius) this.radius = params.radius;
+    },
+    
+    move: function(x, y) {
+      this.x += x*this.speed;
+      this.y += y*this.speed;
+    },
+    
+    dist: function(other) {
+      return Math.sqrt(Math.pow((this.x-other.x),2) + Math.pow((this.y-other.y),2));
+    },
+    
+    collide: function(other) {
+      return (this.dist(other) <= (this.radius+other.radius));
     },
     
     log: function(){

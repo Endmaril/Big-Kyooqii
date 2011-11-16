@@ -20,7 +20,11 @@ var Game = new Class({
   
     Extends: Scene,
     
-    move: {},
+    // game vars
+    nbBairks: 0,
+    nbKeys: 0,
+    
+    move: {}, // keyboard events
   
     initialize: function(app)
     {
@@ -30,14 +34,17 @@ var Game = new Class({
             name: 'Roger',
             pv: 10,
             speed: 2.3,
+            radius: 18,
+            aimScope: 200,
             imgPath: $IMG_DIR + 'monster.png'
         });
         
         this.objects.kyooqii = new Kyooqii({
             pv: 10,
-            x: 200,
-            y: 200,
+            x: 300,
+            y: 300,
             speed: 4,
+            radius: 18,
             imgPath: $IMG_DIR + 'hero.png'
         });
     },
@@ -47,19 +54,17 @@ var Game = new Class({
         var kyooqii = this.objects.kyooqii;
         var monster1 = this.objects.monster1;
         
-        kyooqii.x -= (this.move.left)? kyooqii.speed : 0;
-        kyooqii.x += (this.move.right)? kyooqii.speed : 0;
-        kyooqii.y -= (this.move.up)? kyooqii.speed : 0;
-        kyooqii.y += (this.move.down)? kyooqii.speed : 0;
+        if (this.move.left) kyooqii.move(-1,0);
+        if (this.move.right) kyooqii.move(1,0);
+        if (this.move.up) kyooqii.move(0,-1);
+        if (this.move.down) kyooqii.move(0,1);
 
         if(this.move.left || this.move.right || this.move.up || this.move.down)
             this.app.invalidate();
             
-        var dist = Math.sqrt(Math.pow((kyooqii.x-monster1.x),2) + Math.pow((kyooqii.y-monster1.y),2));
-        
-        if (dist <= 250) {
-          monster1.x += (kyooqii.x-monster1.x) / dist * monster1.speed;
-          monster1.y += (kyooqii.y-monster1.y) / dist * monster1.speed;
+        var dist = kyooqii.dist(monster1);
+        if ((dist<=monster1.aimScope) && !(kyooqii.collide(monster1))) {
+          monster1.move((kyooqii.x-monster1.x)/dist, (kyooqii.y-monster1.y)/dist);
         }
     },
 

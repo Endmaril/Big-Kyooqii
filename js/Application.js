@@ -61,8 +61,9 @@ var Application = new Class({
 
             if(pThis.invalidated)
             {
+                console.info('invalidé');
                 pThis.render();
-                this.invalidated = false;
+                pThis.invalidated = false;
             }
 
             pThis.timeLastFrame = time;

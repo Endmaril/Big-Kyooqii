@@ -28,6 +28,7 @@ var Kyooqii = new Class({
     speed: 0,
     lightRadius: 120,
     fuel: 100,
+    invincible: 0,
     imgEmpty: null,
     imgHalf: null,
     imgFull: null,
@@ -45,6 +46,7 @@ var Kyooqii = new Class({
         
         if (params.lightRadius) this.lightRadius = params.lightRadius;
         if (params.fuel) this.fuel = params.fuel;
+        if (params.invincible) this.invincible = params.invincible;
         
         if (params.imgFull)
         {
@@ -76,6 +78,27 @@ var Kyooqii = new Class({
         }
         
         this.img = this.imgFull;
+        
+        this.heartTableFunction = [
+            function f1() { document.id('firstHeart').src = $IMG_DIR + 'quarterHeart.png'; },
+            function f2() { document.id('firstHeart').src = $IMG_DIR + 'halfHeart.png'; },
+            function f3() { document.id('firstHeart').src = $IMG_DIR + 'threeQuarterHeart.png'; },
+            function f4() {
+                document.id('firstHeart').src = $IMG_DIR + 'fullHeart.png';
+                document.id('secondHeart').src = $IMG_DIR + 'emptyHeart.png';
+            },
+            function f5() { document.id('secondHeart').src = $IMG_DIR + 'quarterHeart.png'; },
+            function f6() { document.id('secondHeart').src = $IMG_DIR + 'halfHeart.png'; },
+            function f7() { document.id('secondHeart').src = $IMG_DIR + 'threeQuarterHeart.png'; },
+            function f8() {
+                document.id('secondHeart').src = $IMG_DIR + 'fullHeart.png';
+                document.id('thirdHeart').src = $IMG_DIR + 'emptyHeart.png';
+            },
+            function f9() { document.id('thirdHeart').src = $IMG_DIR + 'quarterHeart.png'; },
+            function f10() { document.id('thirdHeart').src = $IMG_DIR + 'halfHeart.png'; },
+            function f11() { document.id('thirdHeart').src = $IMG_DIR + 'threeQuarterHeart.png'; },
+            function f12() { document.id('thirdHeart').src = $IMG_DIR + 'fullHeart.png'; }
+        ]
     },
     
     move: function(x, y) {
@@ -133,17 +156,43 @@ var Kyooqii = new Class({
             return $IMG_DIR+'halfLantern.png';
         else if (this.img == this.imgFull)
             return $IMG_DIR+'fullLantern.png';
-        
     },
     
+    decPv: function(unfill) {
+        if (this.pv-unfill >= 0) this.pv-=unfill;
+    },
+    
+    incPv: function(refill) {
+        if (this.pv+refill <= 12)
+            this.pv+=refill;
+        else this.pv = 12;
+    },
+
+    
     decFuel: function(unfill) {
-        if (this.fuel > 0) this.fuel-=unfill;
+        if (this.fuel-unfill >= 0) this.fuel-=unfill;
     },
     
     incFuel: function(refill) {
         if (this.fuel+refill <= 100)
             this.fuel+=refill;
         else this.fuel = 100;
+    },
+    
+    isInvincible: function()
+    {
+        return this.invincible > 0;
+    },
+    
+    setInvincibleForAMoment: function(howLong)
+    {
+        if (howLong >= 0) this.invincible = howLong;
+    },
+    
+    decInvincibleTime: function(unfill)
+    {
+        if (this.invincible-unfill >= 0)
+            this.invincible = this.invincible-unfill;
     },
     
     log: function(){

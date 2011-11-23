@@ -86,7 +86,7 @@ var Game = new Class({
         
         // hero
         this.objects.kyooqii = new Kyooqii({
-            pv: 10,
+            pv: 12,
             x: 300,
             y: 300,
             speed: 2.5,
@@ -106,6 +106,9 @@ var Game = new Class({
         var kyooqii = this.objects.kyooqii;
         var monster1 = this.objects.monster1;
         
+        if (kyooqii.isInvincible()) kyooqii.decInvincibleTime(1);
+        console.log(kyooqii.isInvincible());
+        
         // keyboard events
         if (this.move.left) kyooqii.move(-1,0);
         if (this.move.right) kyooqii.move(1,0);
@@ -119,8 +122,17 @@ var Game = new Class({
         // Monsters logic
         this.room.monsters.each(function(element) {
           var dist = kyooqii.dist(element);
-          if ((dist<=element.aimScope) && !(kyooqii.collide(element))) {
-            element.move((kyooqii.x-element.x)/dist, (kyooqii.y-element.y)/dist);
+          if ((dist<=element.aimScope))
+          {
+            if (kyooqii.collide(element) && (!kyooqii.isInvincible())) {
+                kyooqii.setInvincibleForAMoment(100);
+                kyooqii.decPv(1);
+                console.log(kyooqii.pv);
+                kyooqii.heartTableFunction[kyooqii.pv-1]();
+            }
+            else if (!kyooqii.collide(element)){
+                element.move((kyooqii.x-element.x)/dist, (kyooqii.y-element.y)/dist);
+            }
           }
         });
         

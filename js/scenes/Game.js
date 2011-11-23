@@ -26,6 +26,8 @@ var Game = new Class({
     nbBairks: 0,
     nbKeys: 0,
     
+    needsRefresh: false,
+    
     move: {}, // keyboard events
   
     initialize: function(app)
@@ -110,7 +112,9 @@ var Game = new Class({
         if (this.move.up) kyooqii.move(0,-1);
         if (this.move.down) kyooqii.move(0,1);
         if(this.move.left || this.move.right || this.move.up || this.move.down)
-            this.app.invalidate();
+        {
+            this.needsRefresh = true;
+        }
         
         // Monsters logic
         this.room.monsters.each(function(element) {
@@ -136,7 +140,7 @@ var Game = new Class({
             element.use(kyooqii);
             this.room.items = this.room.items.erase(element);
             delete this.objects[element.name];
-            this.app.invalidate();
+            this.needsRefresh = true;
           }
         }, this);
         
@@ -144,7 +148,7 @@ var Game = new Class({
         Object.each(this.objects, function(element) {
             if (element != kyooqii) {
                 if (kyooqii.canSee(element)) {
-                    this.app.invalidate();
+                    this.needsRefresh = true;
                 }
             }
         }, this);
@@ -155,8 +159,10 @@ var Game = new Class({
         {
             document.id('lantern').src = kyooqii.getLanternImg();
             console.log(kyooqii.img.src);
-            this.app.invalidate();
+            this.needsRefresh = true;
         }
+        
+        if(this.needsRefresh) this.app.invalidate();
     },
 
     keyDown: function(event)

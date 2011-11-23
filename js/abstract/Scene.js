@@ -37,33 +37,39 @@ var Scene = new Class({
 
     update: function(dt)
     {
+        this.updateScene(dt);
+    },
+
+    updateScene: function(dt)
+    {
         Object.each(this.objects, function(item) {
             if(item.update)
                 item.update(dt);
         }, this);
 
         Object.each(this.popups, function(popup) {
-            if(popup.remaining > -popup.fadeoutduration)
+            if(popup.remaining >= -popup.fadeoutduration)
             {
                 popup.remaining -= dt;
+
+                if(popup.remaining <= 0.0)
+                    this.app.invalidate();
             }
             else
             {
                 //TODO: remove popup from array
-                this.app.invalidate();
             }
         }, this);
     },
 
     popup: function(obj)
     {
-        popup = {object: obj, duration: 5.0, remaining: 5.0, fadeoutduration: 0.25};
+        popup = {object: obj, duration: 2.5, remaining: 2.5, fadeoutduration: 0.25};
         this.popups.push(popup);
     },
 
     render: function(time)
     {
-        console.log("draw");
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         var objs = [];
         Object.each(this.objects, function(item) {
@@ -84,7 +90,7 @@ var Scene = new Class({
         //if (this.objects.FuelBottle30) console.log("bottle"); // VIRER, SPECIFIQUE A BIG KYOOQII
 
         Object.each(this.popups, function(popup) {
-            if(popup.remaining > -popup.fadeoutduration) {
+            if(popup.remaining >= -popup.fadeoutduration) {
                 if(popup.remaining < 0)
                     this.ctx.globalAlpha = 1 + popup.remaining / popup.fadeoutduration;
 

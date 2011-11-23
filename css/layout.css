@@ -55,10 +55,18 @@ body
 {
   height: 100px;
   width: 800px;
-  background: pink;
+  background: lightpink;
   padding: 0px;
   margin: 0px;
   border: 0px;
+}
+
+#userinfo img
+{
+	float: left;
+	margin: 0px;
+	margin-left: 20px;
+	margin-top: 10px;
 }
 
 #footer

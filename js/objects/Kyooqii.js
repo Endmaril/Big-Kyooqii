@@ -95,7 +95,8 @@ var Kyooqii = new Class({
       return (this.dist(other) <= (this.lightRadius+other.radius));
     },
     
-    setImage: function() { // return true <=> we changed this.img
+    setImage: function() // return true <=> we changed this.img
+    {
         if (this.fuel < 20)
         {
             if (this.img != this.imgEmpty)
@@ -122,6 +123,17 @@ var Kyooqii = new Class({
                 return true;
             }
         return false;
+    },
+    
+    getLanternImg: function()
+    {
+        if (this.img == this.imgEmpty)
+            return $IMG_DIR+'emptyLantern.png';
+        else if (this.img == this.imgHalf)
+            return $IMG_DIR+'halfLantern.png';
+        else if (this.img == this.imgFull)
+            return $IMG_DIR+'fullLantern.png';
+        
     },
     
     decFuel: function(unfill) {

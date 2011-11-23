@@ -150,8 +150,13 @@ var Game = new Class({
         }, this);
         
         // invalidate() when fuel cross limit
-        kyooqii.decFuel(0.01);
-        if (kyooqii.setImage()) this.app.invalidate();
+        kyooqii.decFuel(0.1);
+        if (kyooqii.setImage())
+        {
+            document.id('lantern').src = kyooqii.getLanternImg();
+            console.log(kyooqii.img.src);
+            this.app.invalidate();
+        }
     },
 
     keyDown: function(event)

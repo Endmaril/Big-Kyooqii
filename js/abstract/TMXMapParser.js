@@ -23,7 +23,7 @@
 var TileInTileset = function()
 {
     this.id = 0;            //id int the tileset
-    this.images = {};       //images associated with the tile
+    this.images = [];       //images associated with the tile
     this.properties = {};    //name:value for each property
 };
 
@@ -41,7 +41,7 @@ var TileSet = function()
     this.tileHeight= 0;
     this.spacing= 0;
     this.margin= 0;
-    this.images= {};       //indexed by src
+    this.images= [];
     this.tiles= {};         //indexed by id
 };
 
@@ -75,12 +75,15 @@ var MapObject = function()
     this.width= 0;
     this.height= 0;
     this.gid= 0;
+    this.images = [];
+    this.properties = {};
 };
 
 var ObjectGroup = function()
 {
     this.name= "";
     this.mapObjects= [];
+    this.properties = {};
 };
 
 var TMXMap = function() 
@@ -93,6 +96,7 @@ var TMXMap = function()
     this.tileWidth= 0;
     this.tileHeight= 0;
     this.properties= {};      //name:value for each property
+    this.objectGroups= [];
 };
 
 /**
@@ -104,7 +108,7 @@ var TMXMapParser = new Class ({
   initialize: function initialize(mapPath) {
     this.tmxMap = new TMXMap();
     this.parse(mapPath);
-    console.log();
+    console.dir(this.tmxMap);
   },
   
   /* Private: */
@@ -171,7 +175,7 @@ var TMXMapParser = new Class ({
       while(rootElement.firstElementChild != null)
       {
           var child = rootElement.firstElementChild
-          console.log(child.nodeName);
+          //console.log(child.nodeName);
           switch(child.nodeName)
           {
             case "tileset" :
@@ -187,7 +191,7 @@ var TMXMapParser = new Class ({
             break;
             
             case "properties" :
-                this.processProperties(child);
+                this.processProperties(child, this.tmxMap);
             break;
           }
           rootElement.removeChild(child);
@@ -222,15 +226,24 @@ var TMXMapParser = new Class ({
       while(element.firstElementChild != null)
       {
           var child = element.firstElementChild;
-          console.log(child.nodeName);
+          //console.log(child.nodeName);
           switch(child.nodeName)
           {
             case "image" :
-                
+                var img = new Image();
+                if (child.hasAttribute("source"))
+                {
+                    img.src = child.getAttribute("source");
+                }
+                if (child.hasAttribute("trans"))
+                {
+                    img.trans = child.getAttribute("trans");
+                }
+                tileSet.images.push(img);
             break;
             
             case "tile" :
-            
+                this.processTileInSet(child, associatedSet);
             break;
           }
           element.removeChild(child);
@@ -241,16 +254,215 @@ var TMXMapParser = new Class ({
   
   processLayer: function processLayer(element)
   {
+      var layer = new Layer();
       
+      if(element.hasAttribute("name"))
+          layer.name = element.getAttribute("name");
+          
+      if(element.hasAttribute("x"))
+          layer.x = parseInt(element.getAttribute("x"));
+          
+      if(element.hasAttribute("y"))
+          layer.y = parseInt(element.getAttribute("y"));
+          
+      if(element.hasAttribute("width"))
+          layer.width = parseInt(element.getAttribute("width"));
+          
+      if(element.hasAttribute("height"))
+          layer.height = parseInt(element.getAttribute("height"));
+          
+      if(element.hasAttribute("opacity"))
+          layer.opacity = parseFloat(element.getAttribute("opacity"));
+          
+      if(element.hasAttribute("visible"))
+          layer.visible = parseInt(element.getAttribute("visible"));
+    
+      while(element.firstElementChild != null)
+      {
+          var child = element.firstElementChild;
+          //console.log(child.nodeName);
+          switch(child.nodeName)
+          {
+            case "properties" :
+                this.processProperties(child, layer);
+            break;
+            
+            case "data" :
+                this.processData(child, layer);
+            break;
+          }
+          element.removeChild(child);
+      }
+      
+      this.tmxMap.layers.push(layer);
   },
   
   processObjectGroup: function processObjectGroup(element)
   {
+      var objectGroup = new ObjectGroup();
       
+      if(element.hasAttribute("name"))
+          objectGroup.name = element.getAttribute("name");
+          
+      if(element.hasAttribute("x"))
+          objectGroup.x = parseInt(element.getAttribute("x"));
+          
+      if(element.hasAttribute("y"))
+          objectGroup.y = parseInt(element.getAttribute("y"));
+          
+      if(element.hasAttribute("width"))
+          objectGroup.width = parseInt(element.getAttribute("width"));
+          
+      if(element.hasAttribute("height"))
+          objectGroup.height = parseInt(element.getAttribute("height"));
+          
+      if(element.hasAttribute("gid"))
+          objectGroup.gid = parseInt(element.getAttribute("opacity"));
+          
+      if(element.hasAttribute("type"))
+          objectGroup.type = element.getAttribute("type");
+    
+      while(element.firstElementChild != null)
+      {
+          var child = element.firstElementChild;
+          //console.log(child.nodeName);
+          switch(child.nodeName)
+          {
+            case "object" :
+                this.processObject(child, objectGroup);
+            break;
+            
+            case "properties" :
+                this.processProperties(child, objectGroup);
+            break;
+          }
+          element.removeChild(child);
+      }
+      
+      this.tmxMap.objectGroups.push(objectGroup);      
   },
   
-  processProperties: function processProperties(element)
+  processProperties: function processProperties(element, associatedObject)
   {
+    while(element.firstElementChild != null)
+      {
+          var child = element.firstElementChild;
+          switch(child.nodeName)
+          {
+            case "property" :
+                if(child.hasAttribute("name") && child.hasAttribute("value"))
+                    associatedObject.properties[child.getAttribute("name")] = child.getAttribute("value");
+            break;
+          }
+          element.removeChild(child);
+      }
+  },
+  
+  processTileInSet: function processTileInSet(element, associatedSet)
+  {
+      var tile = new TileInTileset();
       
+      if (element.hasAttribute("id"))
+      {
+          tile.id = parseInt(element.getAttribute("id"));
+      }
+    
+      while(element.firstElementChild != null)
+      {
+          var child = element.firstElementChild;
+          switch(child.nodeName)
+          {
+            case "image" :
+                var img = new Image();
+                if (child.hasAttribute("source"))
+                {
+                    img.src = child.getAttribute("source");           
+                }
+                
+                if (child.hasAttribute("trans"))
+                {
+                    img.trans = child.getAttribute("trans");  
+                }
+                
+                tile.images.push(img);
+            break
+            
+            case "properties" :
+                this.processProperties(child, tile);
+            break;
+          }
+          element.removeChild(child);
+      }
+      associatedSet.tiles[tile.id] = tile;
+  },
+  
+  processData: function processData(element, associatedLayer)
+  {
+      while(element.firstElementChild != null)
+      {
+          var child = element.firstElementChild;
+          switch(child.nodeName)
+          {
+            case "tile" :
+                if(child.hasAttribute("gid"))
+                    associatedLayer.data.tiles.push(parseInt(child.getAttribute("gid")));
+            break;
+          }
+          element.removeChild(child);
+      }
+  },
+  
+  processObject: function processObject(element, associatedObjectGroup)
+  {
+      var myObject = new MapObject();
+      
+      if (element.hasAttribute("name"))
+          myObject.name = element.getAttribute("name");
+      
+      if (element.hasAttribute("type"))
+          myObject.type = element.getAttribute("type");
+          
+      if (element.hasAttribute("x"))
+          myObject.x = parseInt(element.getAttribute("x"));
+      
+      if (element.hasAttribute("y"))
+          myObject.y = parseInt(element.getAttribute("y"));
+      
+      if (element.hasAttribute("width"))
+          myObject.width = parseInt(element.getAttribute("width"));
+      
+      if (element.hasAttribute("height"))
+          myObject.height = parseInt(element.getAttribute("height"));
+          
+      if (element.hasAttribute("gid"))
+          myObject.height = parseInt(element.getAttribute("gid"));
+      
+      while(element.firstElementChild != null)
+      {
+          var child = element.firstElementChild;
+          switch(child.nodeName)
+          {
+            case "properties" :
+                this.processProperties(child, myObject);
+            break;
+            
+            case "image" :
+                var img = new Image();
+                if (child.hasAttribute("source"))
+                {
+                    img.src = child.getAttribute("source");           
+                }
+                
+                if (child.hasAttribute("trans"))
+                {
+                    img.trans = child.getAttribute("trans");  
+                }
+                
+                myObject.images.push(img);
+            break;
+          }
+          element.removeChild(child);
+      }
   }
+  
 });

@@ -42,10 +42,12 @@ var Map = new Class({
         Array.each(this.tmxMap.layers, function(layer) {
             if(layer.name != 'set')
             {
+                ctx.globalAlpha = layer.opacity;
                 var i = 0;
                 for(var x = 0; x < this.tmxMap.width * this.tmxMap.tileWidth; x += this.tmxMap.tileWidth) {
                     for(var y = 0; y < this.tmxMap.height * this.tmxMap.tileHeight; y += this.tmxMap.tileHeight, i++) {
                         var gid = layer.data.tiles[i];
+
 
                         if(gid > 0)
                         {
@@ -55,6 +57,7 @@ var Map = new Class({
                 }
             }
         }.bind(this));
+        ctx.globalAlpha = 1;
     },
 
 });

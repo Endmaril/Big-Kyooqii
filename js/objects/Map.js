@@ -37,8 +37,11 @@ var Map = new Class({
         }.bind(this));
     },
  
-    draw: function draw(ctx)
+    draw: function draw(ctx, width, height)
     {
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, width, height);
+
         Array.each(this.tmxMap.layers, function(layer) {
             if(layer.name != 'set')
             {
@@ -47,7 +50,6 @@ var Map = new Class({
                 for(var x = 0; x < this.tmxMap.width * this.tmxMap.tileWidth; x += this.tmxMap.tileWidth) {
                     for(var y = 0; y < this.tmxMap.height * this.tmxMap.tileHeight; y += this.tmxMap.tileHeight, i++) {
                         var gid = layer.data.tiles[i];
-
 
                         if(gid > 0)
                         {

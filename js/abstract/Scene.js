@@ -82,13 +82,14 @@ var Scene = new Class({
         });
         Array.each(objs, function(item)
         {
-            item.draw(this.ctx);
+            item.draw(this.ctx, this.canvas.width, this.canvas.height);
         }, this);
         
         if (this.objects.kyooqii) this.objects.kyooqii.draw(this.ctx); // VIRER, SPECIFIQUE A BIG KYOOQII
         
         //if (this.objects.FuelBottle30) console.log("bottle"); // VIRER, SPECIFIQUE A BIG KYOOQII
 
+        // manage popups
         Object.each(this.popups, function(popup) {
             if(popup.remaining >= -popup.fadeoutduration) {
                 if(popup.remaining < 0)

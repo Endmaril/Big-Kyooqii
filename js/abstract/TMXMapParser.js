@@ -20,17 +20,19 @@
  * Definition of objects used to parse the map from the tmx file
  */
 
-var TileInTileset = function()
+var TileInTileSet = function()
 {
     this.id = 0;            //id int the tileset
     this.images = [];       //images associated with the tile
     this.properties = {};    //name:value for each property
 };
 
-var Image = function()
+var ImageTmx = function()
 {
     this.src="";           //path to the image
     this.trans="";          //transparent color in the form "RRGGBB" in hex.
+    this.width = 0;
+    this.height = 0;
 };
 
 var TileSet = function()
@@ -108,12 +110,11 @@ var TMXMapParser = new Class ({
   initialize: function initialize(mapPath) {
     this.tmxMap = new TMXMap();
     this.parse(mapPath);
-    console.dir(this.tmxMap);
   },
   
-  /* Private: */
   tmxMap: null,
   
+  /* Private: */
   /**
    * Load an xml file and return it
    */
@@ -167,10 +168,10 @@ var TMXMapParser = new Class ({
           this.tmxMap.height = rootElement.getAttribute("height");
           
       if(rootElement.hasAttribute("tilewidth"))
-          this.tmxMap.tileWidth = rootElement.getAttribute("tilewidth");
+          this.tmxMap.tileWidth = parseInt(rootElement.getAttribute("tilewidth"));
           
       if(rootElement.hasAttribute("tileheight"))
-          this.tmxMap.tileHeight = rootElement.getAttribute("tileheight");
+          this.tmxMap.tileHeight = parseInt(rootElement.getAttribute("tileheight"));
       
       while(rootElement.firstElementChild != null)
       {
@@ -230,7 +231,7 @@ var TMXMapParser = new Class ({
           switch(child.nodeName)
           {
             case "image" :
-                var img = new Image();
+                var img = new ImageTmx();
                 if (child.hasAttribute("source"))
                 {
                     img.src = child.getAttribute("source");
@@ -238,6 +239,14 @@ var TMXMapParser = new Class ({
                 if (child.hasAttribute("trans"))
                 {
                     img.trans = child.getAttribute("trans");
+                }
+                if (child.hasAttribute("width"))
+                {
+                    img.width = child.getAttribute("width");
+                }
+                if (child.hasAttribute("height"))
+                {
+                    img.height = child.getAttribute("height");
                 }
                 tileSet.images.push(img);
             break;
@@ -360,7 +369,7 @@ var TMXMapParser = new Class ({
   
   processTileInSet: function processTileInSet(element, associatedSet)
   {
-      var tile = new TileInTileset();
+      var tile = new TileInTileSet();
       
       if (element.hasAttribute("id"))
       {
@@ -373,7 +382,7 @@ var TMXMapParser = new Class ({
           switch(child.nodeName)
           {
             case "image" :
-                var img = new Image();
+                var img = new ImageTmx();
                 if (child.hasAttribute("source"))
                 {
                     img.src = child.getAttribute("source");           
@@ -447,7 +456,7 @@ var TMXMapParser = new Class ({
             break;
             
             case "image" :
-                var img = new Image();
+                var img = new ImageTmx();
                 if (child.hasAttribute("source"))
                 {
                     img.src = child.getAttribute("source");           

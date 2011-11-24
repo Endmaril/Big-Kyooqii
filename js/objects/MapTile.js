@@ -16,9 +16,26 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Root directory, change it for your own ;).
-var $ROOT_DIR = './'
 
-var $IMG_DIR = $ROOT_DIR + 'data/images/'
-var $SOUNDS_DIR = $ROOT_DIR + 'data/sounds/'
-var $MAPS_DIR = $ROOT_DIR + 'data/maps/'
+var MapTile = new Class({
+    
+    //Extends: DisplayableObject,
+
+    tileSet: null,
+    gid: 0,
+    images: [],
+
+	draw: function(ctx, dx, dy)
+    {
+        Array.each(this.images, function(img){
+            var id = this.gid - this.tileSet.firstGid;
+            var si = id % (img.width / this.tileSet.tileWidth),
+                sj = Math.floor(id / (img.width / this.tileSet.tileWidth));
+            var sx = si * this.tileSet.tileWidth,
+                sy = sj * this.tileSet.tileHeight;
+
+            ctx.drawImage(img, sx, sy, this.tileSet.tileWidth, this.tileSet.tileHeight, dx, dy, this.tileSet.tileWidth, this.tileSet.tileHeight);
+        }.bind(this));
+	},
+
+});

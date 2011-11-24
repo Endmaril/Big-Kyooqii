@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+  
+  <!--
+    This file is part of the Big Kyoqii game.
+    Copyright (C) 2011  Jérémy Gabriele, Romaric Pighetti, Wiz
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+  
+  <head>
+    <title>THE GAME OF THE YEAR §§§</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" media="screen" type="text/css" title="Basic" href="css/layout.css" />
+    <!-- Lib -->
+    <script type="text/javascript" src="lib/mootools-core-1.4.1-full-compat-yc.js"></script>
+    <!-- Config -->
+    <script type="text/javascript" src="js/config.js"></script>
+    <!-- "Framework" -->
+    <script type="text/javascript" src="js/abstract/DisplayableObject.js"></script>
+    <script type="text/javascript" src="js/abstract/CaptionObject.js"></script>
+    <script type="text/javascript" src="js/abstract/ImageObject.js"></script>
+    <script type="text/javascript" src="js/abstract/Scene.js"></script>
+    <script type="text/javascript" src="js/abstract/TextObject.js"></script>
+    <script type="text/javascript" src="js/abstract/TMXMapParser.js"></script>
+    <!-- Object classes -->
+    <script type="text/javascript" src="js/objects/Room.js"></script>
+    <script type="text/javascript" src="js/objects/Item.js"></script>
+    <script type="text/javascript" src="js/objects/Kyooqii.js"></script>
+    <script type="text/javascript" src="js/objects/Monster.js"></script>
+    <script type="text/javascript" src="js/objects/Bairk.js"></script>
+    <script type="text/javascript" src="js/objects/MapTile.js"></script>
+    <script type="text/javascript" src="js/objects/MapTileSet.js"></script>
+    <script type="text/javascript" src="js/objects/Map.js"></script>
+    <!-- App -->
+    <script type="text/javascript" src="js/Application.js"></script>
+    <!-- Scenes -->
+    <script type="text/javascript" src="js/scenes/Credit.js"></script>
+    <script type="text/javascript" src="js/scenes/Game.js"></script>
+    <script type="text/javascript" src="js/scenes/Title.js"></script>
+    <script type="text/javascript" src="js/scenes/TitleHelp.js"></script>
+    <script type="text/javascript" src="js/scenes/TitleOptions.js"></script>
+  </head>
+  <body onload="var app = new Application();">
+      <div id="banner">
+        ZE BANNEEEEEEEEEEEER
+      </div>
+      <div id="content">
+        <canvas name="game-canvas" id="game-canvas" width="800" height="600"></canvas>
+        <div id="userinfo">
+       			<img id="firstHeart" src="data/images/fullHeart.png" />
+       			<img id="secondHeart" src="data/images/fullHeart.png" />
+       			<img id="thirdHeart" src="data/images/fullHeart.png" />
+       			<img id="lantern" src="data/images/fullLantern.png" />
+        </div>
+      </div>
+      <div id="footer">
+        <a href="doc/LICENCE.html">about this game</a> 
+      </div>
+  </body>
+</html>

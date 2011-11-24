@@ -33,6 +33,8 @@ var Game = new Class({
     initialize: function(app)
     {
         this.parent(app);
+
+        this.objects['map'] = new Map(new TMXMapParser('data/maps/test.xml').tmxMap);
         
         // initialize the room
         this.room = new Room({});        
@@ -107,7 +109,7 @@ var Game = new Class({
         var monster1 = this.objects.monster1;
         
         if (kyooqii.isInvincible()) kyooqii.decInvincibleTime(1);
-        console.log(kyooqii.isInvincible());
+        //console.log(kyooqii.isInvincible());
         
         // keyboard events
         if (this.move.left) kyooqii.move(-1,0);

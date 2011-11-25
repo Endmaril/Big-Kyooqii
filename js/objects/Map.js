@@ -36,6 +36,11 @@ var Map = new Class({
             this.tiles.combine(mapTileSet.tiles);
         }.bind(this));
     },
+
+    isWalkable: function isWalkable(x, y)
+    {
+
+    },
  
     draw: function draw(ctx, width, height)
     {

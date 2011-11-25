@@ -172,7 +172,7 @@ var TMXMapParser = new Class ({
           
       if(rootElement.hasAttribute("tileheight"))
           this.tmxMap.tileHeight = parseInt(rootElement.getAttribute("tileheight"));
-      
+
       while(rootElement.firstElementChild != null)
       {
           var child = rootElement.firstElementChild

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="20" tileheight="20">
+ <properties>
+  <property name="AutomappingRadius" value="4"/>
+  <property name="DeleteTiles" value="1"/>
+ </properties>
+ <tileset firstgid="1" name="rules" tilewidth="20" tileheight="20">
+  <image source="../../images/set_rules.png" width="60" height="60"/>
+ </tileset>
+ <tileset firstgid="10" name="TABLE" tilewidth="20" tileheight="20">
+  <image source="../../images/TABLE.png" width="240" height="220"/>
+ </tileset>
+ <tileset firstgid="130" name="VILFLR" tilewidth="20" tileheight="20">
+  <image source="../../images/VILFLR.png" width="320" height="240"/>
+ </tileset>
+ <tileset firstgid="322" name="VILINT" tilewidth="20" tileheight="20">
+  <image source="../../images/VILINT.png" width="320" height="240"/>
+ </tileset>
+ <tileset firstgid="514" name="VILSHD" tilewidth="20" tileheight="20">
+  <image source="../../images/VILSHD.png" trans="ff00ff" width="320" height="240"/>
+ </tileset>
+ <tileset firstgid="706" name="DOOR" tilewidth="20" tileheight="20">
+  <image source="../../images/DOOR.png" trans="ff00ff" width="200" height="200"/>
+ </tileset>
+ <layer name="ruleRegions" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt0UsKACAIBFAX3v/M7UPI1Jo+8yCSIMZSBE+N3ap39XGDyl49fz2aQ6afF/Izovnes9N5el49f2Q+khpr9m5f/5JfAf3+DHQ+ERERxTQRAgFB
+  </data>
+ </layer>
+ <layer name="ruleSet" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztk9sKACEIRCtY+v8/XoIECbNttcvDHIiimzijIZwnCXOs68j2VxPHV64hO/7Fte5poJ0VLB55xLfo4RHfAmmn1TrvCb7X5p2VP27lS49L+XOs/o+8XVn/JyHtSd+ZGqd37XpnfPL9b92XeE8dK3u8RxLGzFtr/hY8/AcAAADAfl6JkQCx
+  </data>
+ </layer>
+ <layer name="rule_floor" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt0yEOADAMQlHub7lw/bKZGpbwn6moIGmDlOfHPPf4V/pH6fwE696V1ls052OvtTMAAKDTAPbvCAs=
+  </data>
+ </layer>
+ <layer name="rule_shadow" width="32" height="32" opacity="0.46">
+  <data encoding="base64" compression="zlib">
+   eJxjYBj8wIRpoF0wCkYB7YAYUvoWwZHWxUbzwCigEZAe4LSlPcD2Ww+g/V5Au72BWAaIZZlG8/koGAWjYBSMglEwCmgPAIY5AfI=
+  </data>
+ </layer>
+ <layer name="rule_wall" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJxjYBicYDcjhN7MSD87n9HRLkqBChXNCoP6OxhIh+AIgyigeDSNwicNam4ykE7BYUcWUDwbj/08FNhfBjW3GEiX4LCjCiheTSP/t0HNnQykW3DY0QUUn41FTgmNr0ZVl9EHXAb66wqBsL0FlL+NR40NBfY/Bpr7hID9r4Dyr4dQ+UAsOMTEwHAYiI8A8VEgPsZEX/vPAO07C8TngPg8EF8g0X4uKM1Hpv3XgPZdB+IbQHwTiG/R2f8PgPY9BOJHQPwYiJ+QaL8VlLajustGwSgYBaNgFIyCUTBcAQDRuiQc
+  </data>
+ </layer>
+</map>

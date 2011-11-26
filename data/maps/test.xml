@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="64" height="64" tilewidth="20" tileheight="20">
  <tileset firstgid="1" name="rules" tilewidth="20" tileheight="20">
-  <image source="set_rules.png" width="60" height="60"/>
+  <image source="../images/set_rules.png" width="60" height="60"/>
  </tileset>
  <tileset firstgid="10" name="VILINT" tilewidth="20" tileheight="20">
-  <image source="VILINT.png" width="320" height="240"/>
+  <image source="../images/VILINT.png" width="320" height="240"/>
  </tileset>
  <tileset firstgid="202" name="VILFLR" tilewidth="20" tileheight="20">
-  <image source="VILFLR.png" width="320" height="240"/>
+  <image source="../images/VILFLR.png" width="320" height="240"/>
  </tileset>
  <tileset firstgid="394" name="DOOR" tilewidth="20" tileheight="20">
-  <image source="DOOR.png" width="200" height="200"/>
+  <image source="../images/DOOR.png" width="200" height="200"/>
  </tileset>
  <tileset firstgid="494" name="VILSHD" tilewidth="20" tileheight="20">
-  <image source="VILSHD.png" width="320" height="240"/>
+  <image source="../images/VILSHD.png" width="320" height="240"/>
  </tileset>
  <tileset firstgid="686" name="TABLE" tilewidth="20" tileheight="20">
-  <image source="TABLE.png" width="240" height="220"/>
+  <image source="../images/TABLE.png" width="240" height="220"/>
  </tileset>
  <layer name="floor" width="64" height="64">
   <data>

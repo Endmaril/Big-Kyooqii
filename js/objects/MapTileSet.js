@@ -33,7 +33,7 @@ var MapTileSet = new Class({
 
         Array.each(tileSet.images, function(image) {
             var mapImage = new Image();
-            mapImage.src = $IMG_DIR + image.src;
+            mapImage.src = $MAPS_DIR + image.src;
             mapImage.width = image.width;
             mapImage.height = image.height;
             this.images.push(mapImage);

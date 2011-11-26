@@ -32,6 +32,7 @@ var Kyooqii = new Class({
     imgEmpty: null,
     imgHalf: null,
     imgFull: null,
+    map: null,
 
     initialize: function(params)
     {
@@ -43,6 +44,7 @@ var Kyooqii = new Class({
         if (params.att) this.att = params.att;
         if (params.def) this.def = params.def;
         if (params.speed) this.speed = params.speed;
+        if (params.map) this.map = params.map;
         
         if (params.lightRadius) this.lightRadius = params.lightRadius;
         if (params.fuel) this.fuel = params.fuel;
@@ -100,10 +102,16 @@ var Kyooqii = new Class({
             function f12() { document.id('thirdHeart').src = $IMG_DIR + 'fullHeart.png'; }
         ]
     },
-    
+   
     move: function(x, y) {
-      this.x += x*this.speed;
-      this.y += y*this.speed;
+        var newX = this.x + x * this.speed,
+            newY = this.y + y * this.speed;
+
+        if(this.map.isWalkable(newX / this.map.tileWidth, newY / this.map.tileHeight))
+        {
+            this.x = newX;
+            this.y = newY;
+        }
     },
     
     dist: function(other) {

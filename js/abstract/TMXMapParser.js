@@ -472,6 +472,8 @@ var TMXMapParser = new Class ({
           }
           element.removeChild(child);
       }
+
+      associatedObjectGroup.mapObjects.push(myObject);      
   }
   
 });

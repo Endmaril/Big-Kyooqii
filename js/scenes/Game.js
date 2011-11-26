@@ -34,7 +34,8 @@ var Game = new Class({
     {
         this.parent(app);
 
-        this.objects['map'] = new Map(new TMXMapParser('data/maps/test.xml').tmxMap);
+        var map = new Map(new TMXMapParser('data/maps/test.xml').tmxMap);
+        this.objects['map'] = map;
         
         // initialize the room
         this.room = new Room({});        
@@ -88,9 +89,10 @@ var Game = new Class({
         
         // hero
         this.objects.kyooqii = new Kyooqii({
+            map: this.objects['map'],
             pv: 12,
-            x: 300,
-            y: 300,
+            x: map.getSpawn().x,
+            y: map.getSpawn().y,
             speed: 2.5,
             radius: 18,
             imgPath: $IMG_DIR + 'fullLight.png',
@@ -112,10 +114,10 @@ var Game = new Class({
         //console.log(kyooqii.isInvincible());
         
         // keyboard events
-        if (this.move.left) kyooqii.move(-1,0);
-        if (this.move.right) kyooqii.move(1,0);
-        if (this.move.up) kyooqii.move(0,-1);
-        if (this.move.down) kyooqii.move(0,1);
+        if (this.move.left) kyooqii.move(-50*dt,0);
+        if (this.move.right) kyooqii.move(50*dt,0);
+        if (this.move.up) kyooqii.move(0,-50*dt);
+        if (this.move.down) kyooqii.move(0,50*dt);
         if(this.move.left || this.move.right || this.move.up || this.move.down)
         {
             this.needsRefresh = true;
@@ -168,7 +170,7 @@ var Game = new Class({
         }, this);
         
         // invalidate() when fuel cross limit
-        kyooqii.decFuel(0.1);
+        kyooqii.decFuel(0.01);
         if (kyooqii.setImage())
         {
             document.id('lantern').src = kyooqii.getLanternImg();

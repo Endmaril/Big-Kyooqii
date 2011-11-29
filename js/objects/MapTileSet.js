@@ -24,6 +24,7 @@ var MapTileSet = new Class({
     tileHeight: null,
     images: [],
     tiles: [],
+    ready: false,
 
     initialize: function(tileSet)
     {
@@ -36,6 +37,9 @@ var MapTileSet = new Class({
             mapImage.src = $MAPS_DIR + image.src;
             mapImage.width = image.width;
             mapImage.height = image.height;
+            mapImage.onload = function() {
+                this.ready = true;
+            }.bind(this);
             this.images.push(mapImage);
         }.bind(this));
 

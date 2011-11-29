@@ -23,6 +23,8 @@ var ImageObject = new Class({
     imgPath: '',
     width: 0,
     height: 0,
+    centerX: 0.5,
+    centerY: 0.5,
     radius: 1,
 	
 	initialize: function(params){
@@ -45,9 +47,15 @@ var ImageObject = new Class({
             console.log("invalid imgPath for " + this.name);
         }
         if (params.radius) this.radius = params.radius;
+        if (params.centerX) this.centerX = params.centerX;
+        if (params.centerY) this.centerY = params.centerY;
 	},
 	
 	draw: function(ctx){
-        ctx.drawImage(this.img, Math.round((this.x-this.img.width/2) / 2) * 2, Math.round((this.y-this.img.height/2) / 2) * 2);
+        var x = this.x - this.centerX * this.img.width,
+            y = this.y - this.centerY * this.img.height;
+        x = Math.round(x / 2) * 2;
+        y = Math.round(y / 2) * 2;
+        ctx.drawImage(this.img, x, y);
 	}
 });

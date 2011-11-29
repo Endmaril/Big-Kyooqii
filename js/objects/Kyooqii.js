@@ -22,6 +22,7 @@ var Kyooqii = new Class({
 
     name: 'Kyooqii',
 
+    centerY: 0.512,
     pv: 0,
     att: 0,
     def: 0,

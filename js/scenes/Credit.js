@@ -61,17 +61,6 @@ var Credit = new Class({
             x:280,
             y:250
         });
-        
-        this.objects.text8 = new TextObject({
-            content: 'GameDesign:',
-            y:300
-        });
-        
-        this.objects.text9 = new TextObject({
-            content: 'Paul Sanchez',
-            y:300,
-            x:280
-        });
     },
 
     keyDown: function(event)

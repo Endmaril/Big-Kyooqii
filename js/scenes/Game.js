@@ -141,7 +141,7 @@ var Game = new Class({
                 element.move((kyooqii.x-element.x)/dist, (kyooqii.y-element.y)/dist);
             }
           }
-        });
+        }, this);
         
         // Bairks logic
         this.room.bairks.each(function(element) {

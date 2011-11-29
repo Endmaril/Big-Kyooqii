@@ -25,7 +25,7 @@ var GameOver = new Class({
         this.parent(app);
         
         this.objects.text1 = new TextObject({
-            content: 'You fucking lose the game !'
+            content: 'Vous avez été tué par les trolls.'
         });
     },
     
@@ -33,6 +33,10 @@ var GameOver = new Class({
     {
         if(event.key == 'esc')
         {
+            document.id('firstHeart').src = $IMG_DIR + 'fullHeart.png';
+            document.id('secondHeart').src = $IMG_DIR + 'fullHeart.png';
+            document.id('thirdHeart').src = $IMG_DIR + 'fullHeart.png';
+            document.id('lantern').src = $IMG_DIR+'fullLantern.png';
             this.app.setScene(new Title(this.app));
             return false;
         }

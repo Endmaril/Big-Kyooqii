@@ -134,7 +134,7 @@ var Game = new Class({
                 console.log(kyooqii.pv);
                 if (kyooqii.pv >= 0)
                     kyooqii.heartTableFunction[kyooqii.pv]();
-                else
+                if (kyooqii.pv <= 0)
                     this.app.setScene(new GameOver(this));
             }
             else if (!kyooqii.collide(element)){

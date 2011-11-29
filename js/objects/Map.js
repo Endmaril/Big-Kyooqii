@@ -49,8 +49,7 @@ var Map = new Class({
             iy = Math.floor(y);
 
         Array.each(this.tmxMap.layers, function(layer) {
-            if(layer.name == 'walkable')
-            {
+            if(layer.name == 'walkable') {
                 var i = ix % layer.width + Math.floor(iy * layer.width);
 
                 if(layer.data.tiles[i] > 0)
@@ -61,6 +60,57 @@ var Map = new Class({
         return walkable;
     },
 
+    isExit: function isExit(x, y)
+    {
+        var exit = false;
+
+        Array.each(this.tmxMap.objectGroups, function(layer) {
+            if(layer.name == 'game') {
+                Array.each(layer.mapObjects, function(object) {
+                    if(object.name == 'exit')
+                        if(x >= object.x && x <= object.x + object.width &&
+                           y >= object.y && y <= object.y + object.height)
+                            exit = true;
+                }.bind(this));
+            }
+        }.bind(this));
+
+        return exit;
+    },
+
+    isChest: function isChest(x, y)
+    {
+        var chest = false;
+
+        Array.each(this.tmxMap.objectGroups, function(layer) {
+            if(layer.name == 'game') {
+                Array.each(layer.mapObjects, function(object) {
+                    if(object.name == 'chest') {
+                        if(x >= object.x && x <= object.x + this.tileWidth &&
+                           y >= object.y && y <= object.y + this.tileHeight) {
+                            chest = true;
+                        }
+                    }
+                }.bind(this));
+            }
+        }.bind(this));
+
+        return chest;
+    },
+
+    getObjects: function getObjects()
+    {
+        var objs = null;
+
+        Array.each(this.tmxMap.objectGroups, function(layer) {
+            if(layer.name == 'game') {
+                objs = layer.mapObjects;
+            }
+        }.bind(this));
+
+        return objs;
+    },
+
     getSpawn: function getSpawn()
     {
         var spawn = undefined;
@@ -68,8 +118,8 @@ var Map = new Class({
             if(layer.name == 'game') {
                 Array.each(layer.mapObjects, function(object) {
                     if(object.name == 'spawn')
-                        spawn = {x: object.x, y: object.y};
-                });
+                        spawn = {x: object.x + this.tileWidth / 2, y: object.y - this.tileHeight / 2};
+                }.bind(this));
             }
         }.bind(this));
 

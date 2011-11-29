@@ -34,6 +34,7 @@ var Kyooqii = new Class({
     imgHalf: null,
     imgFull: null,
     map: null,
+    hasKey: false,
 
     initialize: function(params)
     {

@@ -84,6 +84,7 @@ var Kyooqii = new Class({
         this.img = this.imgFull;
         
         this.heartTableFunction = [
+            function f0() { document.id('firstHeart').src = $IMG_DIR + 'emptyHeart.png'; },
             function f1() { document.id('firstHeart').src = $IMG_DIR + 'quarterHeart.png'; },
             function f2() { document.id('firstHeart').src = $IMG_DIR + 'halfHeart.png'; },
             function f3() { document.id('firstHeart').src = $IMG_DIR + 'threeQuarterHeart.png'; },
@@ -169,7 +170,10 @@ var Kyooqii = new Class({
     },
     
     decPv: function(unfill) {
-        if (this.pv-unfill >= 0) this.pv-=unfill;
+        if (this.pv-unfill >= 0) 
+          this.pv-=unfill;
+        else
+          this.pv = 0;
     },
     
     incPv: function(refill) {

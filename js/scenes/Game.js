@@ -140,13 +140,16 @@ var Game = new Class({
                 kyooqii.setInvincibleForAMoment(100);
                 kyooqii.decPv(1);
                 console.log(kyooqii.pv);
-                kyooqii.heartTableFunction[kyooqii.pv-1]();
+                if (kyooqii.pv >= 0)
+                    kyooqii.heartTableFunction[kyooqii.pv]();
+                if (kyooqii.pv <= 0)
+                    this.app.setScene(new GameOver(this.app));
             }
             else if (!kyooqii.collide(element)){
                 element.move((kyooqii.x-element.x)/dist, (kyooqii.y-element.y)/dist);
             }
           }
-        });
+        }, this);
         
         // Bairks logic
         this.room.bairks.each(function(element) {

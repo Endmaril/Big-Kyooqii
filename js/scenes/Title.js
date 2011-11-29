@@ -30,9 +30,9 @@ var Title = new Class({
         this.menus.push({text: 'Play', callback: function(){
             app.setScene(new Game(app));
         }});
-        this.menus.push({text: 'Options', callback: function(){
-            app.setScene(new TitleOptions(app));
-        }});
+        //this.menus.push({text: 'Options', callback: function(){
+            //app.setScene(new TitleOptions(app));
+        //}});
         this.menus.push({text: 'Help', callback: function(){
             app.setScene(new TitleHelp(app));
         }});

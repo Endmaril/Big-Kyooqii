@@ -38,8 +38,14 @@ var Bairk = new Class({
     },
     
     move: function(x, y) {
-      this.x += x*this.speed;
-      this.y += y*this.speed;
+        var newX += x*this.speed;
+        var newY += y*this.speed;
+      
+        if(this.map.isWalkable(newX / this.map.tileWidth, newY / this.map.tileHeight))
+        {
+            this.x = newX;
+            this.y = newY;
+        }
     },
     
     log: function(){

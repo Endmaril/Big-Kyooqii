@@ -25,7 +25,7 @@ var Credit = new Class({
         this.parent(app);
         
         this.objects.text1 = new TextObject({
-            content: 'The fucking staff !'
+            content: 'Développeurs:\n \t Jérémy Gabriele'
         });
     },
 

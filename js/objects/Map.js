@@ -40,8 +40,6 @@ var Map = new Class({
             this.tileSets.push(mapTileSet);
             this.tiles.combine(mapTileSet.tiles);
         }.bind(this));
-
-        this.preDraw();
     },
 
     isWalkable: function isWalkable(x, y)
@@ -80,6 +78,15 @@ var Map = new Class({
  
     preDraw: function preDraw()
     {
+        // if one layer isn't loaded yet, just try another time
+        var ready = true;
+        Array.each(this.tileSets, function(tileset) {
+            if(!tileset.ready)
+                ready = false;
+        }.bind(this));
+        if(!ready)
+            return false;
+
         this.preCanvas = document.createElement("canvas");
         this.preCanvas.width = this.tmxMap.width * this.tmxMap.tileWidth;
         this.preCanvas.height = this.tmxMap.height * this.tmxMap.tileHeight;
@@ -118,6 +125,9 @@ var Map = new Class({
 
     draw: function draw(ctx, width, height)
     {
+        if(this.preCanvas == null && !this.preDraw())
+            return;
+
         ctx.drawImage(this.preCanvas, 0, 0);
     },
 });

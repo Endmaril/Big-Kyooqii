@@ -22,6 +22,7 @@ var Application = new Class({
     canvas: null,
     invalidated: false,
     timeLastFrame: 0,
+    timeLastRender: 0,
 
     initialize: function(){
         this.canvas = document.id('game-canvas');
@@ -59,10 +60,11 @@ var Application = new Class({
             var dt = this.timeLastFrame == 0 ? 0 : 0.001 * (time - pThis.timeLastFrame);
             pThis.scene.update(dt);
 
-            if(pThis.invalidated)
+            if(pThis.invalidated || time - this.timeLastRender > 250)
             {
                 pThis.render();
                 pThis.invalidated = false;
+                this.timeLastRender = time;
             }
 
             pThis.timeLastFrame = time;

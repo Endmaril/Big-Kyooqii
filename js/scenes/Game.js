@@ -39,53 +39,50 @@ var Game = new Class({
         
         // initialize the room
         this.room = new Room({});        
-        this.room.addMonster(new Monster({
-            name: 'Roger',
-            pv: 10,
-            speed: 1,
-            radius: 18,
-            aimScope: 200,
-            imgPath: $IMG_DIR + 'monster.png'
-        }));
-        this.room.addMonster(new Monster({
-            name: 'Bob',
-            x: 500,
-            y: 500,
-            pv: 10,
-            speed: 1,
-            radius: 18,
-            aimScope: 100,
-            imgPath: $IMG_DIR + 'monster.png'
-        }));
-        this.room.addBairk(new Bairk({
-            name: 'Bairky',
-            x: 500,
-            y: 300,
-            speed: 1.5,
-            radius: 18,
-            aimScope: 130,
-            imgPath: $IMG_DIR + 'hero.png'
-        }));
-        this.room.addItem(new Item({
-            name: 'FuelBottle30',
-            x: 100,
-            y: 500,
-            carac: 'Fuel',
-            value: 30,
-            imgPath: $IMG_DIR + 'hero.png'
-        }));
-        
-        // put every displayable objects form the room to the scene.
-        var pThis = this;
-        this.room.monsters.each(function(element){
-          pThis.objects[element.name] = element;
-        });
-        this.room.bairks.each(function(element){
-          pThis.objects[element.name] = element;
-        });
-        this.room.items.each(function(element){
-          pThis.objects[element.name] = element;
-        });
+
+        Array.each(map.getObjects(), function(object, ndx) {
+            if(object.type == 'monster') {
+                monster = new Monster({
+                    name: 'Monster' + ndx,
+                    x: object.x,
+                    y: object.y,
+                    pv: 10,
+                    speed: 1,
+                    radius: 18,
+                    aimScope: 200,
+                    imgPath: $IMG_DIR + 'monster.png',
+                    map: this.objects['map']
+                });
+                this.objects[monster.name] = monster;
+                this.room.addMonster(monster);
+            }
+            else if(object.type == 'bairk') {
+                bairk = new Bairk({
+                    name: 'Bairk' + ndx,
+                    x: object.x,
+                    y: object.y,
+                    speed: 1.5,
+                    radius: 18,
+                    aimScope: 130,
+                    imgPath: $IMG_DIR + 'bairk.png',
+                    map: this.objects['map']
+                });
+                this.objects[bairk.name] = bairk;
+                this.room.addBairk(bairk);
+            }
+            else if(object.type == 'fuel') {
+                item = new Item({
+                    name: 'Item' + ndx,
+                    x: object.x,
+                    y: object.y,
+                    carac: 'Fuel',
+                    value: 30,
+                    imgPath: $IMG_DIR + 'hero.png'
+                });
+                this.objects[item.name] = item;
+                this.room.addItem(item);
+            }
+        }.bind(this));
         
         // hero
         this.objects.kyooqii = new Kyooqii({
@@ -122,6 +119,18 @@ var Game = new Class({
         {
             this.needsRefresh = true;
         }
+
+        if(this.objects['map'].isExit(kyooqii.x, kyooqii.y)) {
+            if(kyooqii.hasKey)
+            else
+                this.popup(new CaptionObject({x: kyooqii.x, y: kyooqii.y, content: 'C\'est vérouillé. Il me faut la clé.'}));
+        }
+
+        if(this.objects['map'].isChest(kyooqii.x, kyooqii.y))
+        {
+            this.popup(new CaptionObject({x: kyooqii.x, y: kyooqii.y, content: 'Tadadada ! Voici la précieuse clé !'}));
+            kyooqii.hasKey = true;
+        }
         
         // Monsters logic
         this.room.monsters.each(function(element) {
@@ -132,13 +141,16 @@ var Game = new Class({
                 kyooqii.setInvincibleForAMoment(100);
                 kyooqii.decPv(1);
                 console.log(kyooqii.pv);
-                kyooqii.heartTableFunction[kyooqii.pv-1]();
+                if (kyooqii.pv >= 0)
+                    kyooqii.heartTableFunction[kyooqii.pv]();
+                if (kyooqii.pv <= 0)
+                    this.app.setScene(new GameOver(this.app));
             }
             else if (!kyooqii.collide(element)){
                 element.move((kyooqii.x-element.x)/dist, (kyooqii.y-element.y)/dist);
             }
           }
-        });
+        }, this);
         
         // Bairks logic
         this.room.bairks.each(function(element) {

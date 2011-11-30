@@ -25,7 +25,7 @@ var GameOver = new Class({
         this.parent(app);
         
         this.objects.text1 = new TextObject({
-            content: 'Vous avez été tué par les trolls.'
+            content: 'Victoire ! Tu t\'es échappé vivant du donjon !',
         });
     },
     

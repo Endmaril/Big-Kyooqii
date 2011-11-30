@@ -58,15 +58,18 @@ var CaptionObject = new Class({
                              0, 0);
     },
 	
-	draw: function(ctx)
+	draw: function(ctx, canvasWidth, canvasHeight)
     {
         ctx.save();
-        ctx.translate(this.x, this.y);
 
         ctx.textAlign = this.textAlign;
         ctx.textBaseline = this.textBaseline;
         ctx.font = this.font;
         var w = ctx.measureText(this.content, 0, -35).width;
+        var x = this.x;
+        if(x + w > canvasWidth)
+            x = canvasWidth - w;
+        ctx.translate(x, this.y);
 
         ctx.fillStyle = 'white';
         this.bubble(ctx, w);

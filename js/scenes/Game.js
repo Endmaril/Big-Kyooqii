@@ -166,7 +166,7 @@ var Game = new Class({
         this.room.items.each(function(element) {
           var dist = kyooqii.dist(element);
           if (kyooqii.collide(element)) {
-              this.popup(new CaptionObject({x: kyooqii.x, y: kyooqii.y, content: 'Bonus!'}));
+              this.popup(new CaptionObject({x: kyooqii.x, y: kyooqii.y, content: 'Bonus huile lampe!'}));
             element.use(kyooqii);
             this.room.items = this.room.items.erase(element);
             delete this.objects[element.name];

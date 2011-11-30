@@ -47,7 +47,7 @@ var Scene = new Class({
                 item.update(dt);
         }, this);
 
-        Object.each(this.popups, function(popup) {
+        Object.each(this.popups, function(popup, index) {
             if(popup.remaining >= -popup.fadeoutduration)
             {
                 popup.remaining -= dt;
@@ -57,7 +57,7 @@ var Scene = new Class({
             }
             else
             {
-                //TODO: remove popup from array
+                delete this.popups[index];
             }
         }, this);
     },
@@ -66,13 +66,8 @@ var Scene = new Class({
     {
         var unique = true;
         Object.each(this.popups, function(popup) {
-            
-            if(popup && popup.obj && obj) {
-
-                console.log(popup.obj.content + ' ~ ' + obj.content);
-                if(popup.obj.content == obj.content) {
-                    unique = false;
-                }
+            if(popup.object.content == obj.content) {
+                unique = false;
             }
         });
         if(!unique)
@@ -111,7 +106,7 @@ var Scene = new Class({
                 if(popup.remaining < 0)
                     this.ctx.globalAlpha = 1 + popup.remaining / popup.fadeoutduration;
 
-                popup.object.draw(this.ctx);
+                popup.object.draw(this.ctx, this.canvas.width, this.canvas.height);
                 this.ctx.globalAlpha = 1;
             }
         }, this);

@@ -142,6 +142,7 @@ var Game = new Class({
             if (kyooqii.collide(element) && (!kyooqii.isInvincible())) {
                 kyooqii.setInvincibleForAMoment(100);
                 kyooqii.decPv(1);
+                this.popup(new CaptionObject({x: kyooqii.x, y: kyooqii.y, content: 'Ouch !'}));
                 console.log(kyooqii.pv);
                 if (kyooqii.pv >= 0)
                     kyooqii.heartTableFunction[kyooqii.pv]();

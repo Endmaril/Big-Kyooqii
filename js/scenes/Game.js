@@ -64,7 +64,7 @@ var Game = new Class({
                     speed: 1.5,
                     radius: 18,
                     aimScope: 130,
-                    imgPath: $IMG_DIR + 'hero.png',
+                    imgPath: $IMG_DIR + 'bairk.png',
                     map: this.objects['map']
                 });
                 this.objects[bairk.name] = bairk;

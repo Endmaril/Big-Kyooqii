@@ -130,7 +130,7 @@ var Game = new Class({
         if(this.objects['map'].isChest(kyooqii.x, kyooqii.y))
         {
             this.popup(new CaptionObject({x: kyooqii.x, y: kyooqii.y, content: 'Tadadada ! Voici la précieuse clé !'}));
-            document.id('key').src = IMG_DIR + 'key_taken.png';
+            document.id('key').src = $IMG_DIR + 'key_taken.png';
             kyooqii.hasKey = true;
         }
         

@@ -25,6 +25,7 @@ var Bairk = new Class({
     aimScope: 150,
     speed: 0,
     radius: 0,
+    map:null,
 
     initialize: function(params)
     {
@@ -35,11 +36,18 @@ var Bairk = new Class({
         if (params.aimScope) this.aimScope = params.aimScope;
         if (params.speed) this.speed = params.speed;
         if (params.radius) this.radius = params.radius;
+        if (params.map) this.map = params.map;
     },
     
     move: function(x, y) {
-      this.x += x*this.speed;
-      this.y += y*this.speed;
+        var newX = this.x + x*this.speed;
+        var newY = this.y + y*this.speed;
+      
+        if(this.map.isWalkable(newX / this.map.tileWidth, newY / this.map.tileHeight))
+        {
+            this.x = newX;
+            this.y = newY;
+        }
     },
     
     log: function(){

@@ -50,7 +50,8 @@ var Game = new Class({
                     speed: 1,
                     radius: 18,
                     aimScope: 200,
-                    imgPath: $IMG_DIR + 'monster.png'
+                    imgPath: $IMG_DIR + 'monster.png',
+                    map: this.objects['map']
                 });
                 this.objects[monster.name] = monster;
                 this.room.addMonster(monster);
@@ -63,7 +64,8 @@ var Game = new Class({
                     speed: 1.5,
                     radius: 18,
                     aimScope: 130,
-                    imgPath: $IMG_DIR + 'hero.png'
+                    imgPath: $IMG_DIR + 'bairk.png',
+                    map: this.objects['map']
                 });
                 this.objects[bairk.name] = bairk;
                 this.room.addBairk(bairk);

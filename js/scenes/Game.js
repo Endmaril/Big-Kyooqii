@@ -44,8 +44,8 @@ var Game = new Class({
             if(object.type == 'monster') {
                 monster = new Monster({
                     name: 'Monster' + ndx,
-                    x: object.x,
-                    y: object.y,
+                    x: object.x + map.tileWidth / 2,
+                    y: object.y - map.tileHeight / 2,
                     pv: 10,
                     speed: 1.5,
                     radius: 18,
@@ -59,8 +59,8 @@ var Game = new Class({
             else if(object.type == 'bairk') {
                 bairk = new Bairk({
                     name: 'Bairk' + ndx,
-                    x: object.x,
-                    y: object.y,
+                    x: object.x + map.tileWidth / 2,
+                    y: object.y - map.tileHeight / 2,
                     speed: 1.5,
                     radius: 18,
                     aimScope: 130,
@@ -73,8 +73,8 @@ var Game = new Class({
             else if(object.type == 'fuel') {
                 item = new Item({
                     name: 'Item' + ndx,
-                    x: object.x,
-                    y: object.y,
+                    x: object.x + map.tileWidth / 2,
+                    y: object.y - map.tileHeight / 2,
                     carac: 'Fuel',
                     value: 30,
                     imgPath: $IMG_DIR + 'oil.png'

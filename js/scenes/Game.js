@@ -77,7 +77,7 @@ var Game = new Class({
                     y: object.y,
                     carac: 'Fuel',
                     value: 30,
-                    imgPath: $IMG_DIR + 'hero.png'
+                    imgPath: $IMG_DIR + 'oil.png'
                 });
                 this.objects[item.name] = item;
                 this.room.addItem(item);

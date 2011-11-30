@@ -122,6 +122,7 @@ var Game = new Class({
 
         if(this.objects['map'].isExit(kyooqii.x, kyooqii.y)) {
             if(kyooqii.hasKey)
+                    this.app.setScene(new WinScreen(this.app));
             else
                 this.popup(new CaptionObject({x: kyooqii.x, y: kyooqii.y, content: 'C\'est vérouillé. Il me faut la clé.'}));
         }

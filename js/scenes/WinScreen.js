@@ -25,7 +25,7 @@ var WinScreen = new Class({
         this.parent(app);
         
         this.objects.text1 = new TextObject({
-            content: 'You fucking won !'
+            content: 'Victoire ! Tu t\'es échappé vivant du donjon !',
         });
     },
 
@@ -33,6 +33,10 @@ var WinScreen = new Class({
     {
         if(event.key == 'esc')
         {
+            document.id('firstHeart').src = $IMG_DIR + 'fullHeart.png';
+            document.id('secondHeart').src = $IMG_DIR + 'fullHeart.png';
+            document.id('thirdHeart').src = $IMG_DIR + 'fullHeart.png';
+            document.id('lantern').src = $IMG_DIR+'fullLantern.png';
             this.app.setScene(new Title(this.app));
             return false;
         }

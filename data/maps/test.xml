@@ -8675,8 +8675,8 @@
    <tile gid="78"/>
    <tile gid="78"/>
    <tile gid="78"/>
-   <tile gid="101"/>
-   <tile gid="102"/>
+   <tile gid="85"/>
+   <tile gid="86"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -16427,7 +16427,7 @@
   <object name="chest" gid="4" x="700" y="240"/>
   <object type="monster" gid="8" x="480" y="220"/>
   <object type="monster" gid="8" x="480" y="320"/>
-  <object type="bairk" gid="9" x="700" y="80"/>
+  <object type="bairk" gid="9" x="380" y="100"/>
   <object type="bairk" gid="9" x="180" y="580"/>
   <object type="monster" gid="8" x="760" y="100"/>
   <object type="monster" gid="8" x="260" y="580"/>

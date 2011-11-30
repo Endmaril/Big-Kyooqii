@@ -120,14 +120,13 @@ var Game = new Class({
 
         if(this.objects['map'].isExit(kyooqii.x, kyooqii.y)) {
             if(kyooqii.hasKey)
-                console.log('gagne');
             else
-                console.log('Il te faut la clé !');
+                this.popup(new CaptionObject({x: kyooqii.x, y: kyooqii.y, content: 'C\'est vérouillé. Il me faut la clé.'}));
         }
 
         if(this.objects['map'].isChest(kyooqii.x, kyooqii.y))
         {
-            console.log('Tadadada !');
+            this.popup(new CaptionObject({x: kyooqii.x, y: kyooqii.y, content: 'Tadadada ! Voici la précieuse clé !'}));
             kyooqii.hasKey = true;
         }
         

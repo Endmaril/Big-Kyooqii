@@ -64,8 +64,19 @@ var Scene = new Class({
 
     popup: function(obj)
     {
+        var unique = true;
+        Object.each(this.popups, function(popup) {
+            if(popup.obj.x == obj.x && popup.obj.y == obj.y &&
+               popup.content == obj.content)
+                unique = false;
+        });
+        if(!unique)
+            return false;
+
         popup = {object: obj, duration: 2.5, remaining: 2.5, fadeoutduration: 0.25};
         this.popups.push(popup);
+
+        return true;
     },
 
     render: function(time)

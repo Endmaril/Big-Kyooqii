@@ -45,7 +45,8 @@ var Game = new Class({
             speed: 1,
             radius: 18,
             aimScope: 200,
-            imgPath: $IMG_DIR + 'monster.png'
+            imgPath: $IMG_DIR + 'monster.png',
+            map: this.objects['map']
         }));
         this.room.addMonster(new Monster({
             name: 'Bob',
@@ -55,7 +56,8 @@ var Game = new Class({
             speed: 1,
             radius: 18,
             aimScope: 100,
-            imgPath: $IMG_DIR + 'monster.png'
+            imgPath: $IMG_DIR + 'monster.png',
+            map: this.objects['map']
         }));
         this.room.addBairk(new Bairk({
             name: 'Bairky',
@@ -64,7 +66,8 @@ var Game = new Class({
             speed: 1.5,
             radius: 18,
             aimScope: 130,
-            imgPath: $IMG_DIR + 'bairk.png'
+            imgPath: $IMG_DIR + 'bairk.png',
+            map: this.objects['map']
         }));
         this.room.addItem(new Item({
             name: 'FuelBottle30',

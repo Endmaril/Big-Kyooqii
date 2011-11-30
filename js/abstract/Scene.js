@@ -66,9 +66,14 @@ var Scene = new Class({
     {
         var unique = true;
         Object.each(this.popups, function(popup) {
-            if(popup.obj.x == obj.x && popup.obj.y == obj.y &&
-               popup.content == obj.content)
-                unique = false;
+            
+            if(popup && popup.obj && obj) {
+
+                console.log(popup.obj.content + ' ~ ' + obj.content);
+                if(popup.obj.content == obj.content) {
+                    unique = false;
+                }
+            }
         });
         if(!unique)
             return false;

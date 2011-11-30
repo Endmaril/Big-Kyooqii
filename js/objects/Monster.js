@@ -58,7 +58,7 @@ var Monster = new Class({
         {
             this.x = newX;
         }
-        else if (this.map.isWalkable(this.y / this.map.tileWidth, newY / this.map.tileHeight))
+        else if (this.map.isWalkable(this.x / this.map.tileWidth, newY / this.map.tileHeight))
         {
             this.y = newY;
         }

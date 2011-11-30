@@ -47,7 +47,7 @@ var Game = new Class({
                     x: object.x,
                     y: object.y,
                     pv: 10,
-                    speed: 1,
+                    speed: 1.5,
                     radius: 18,
                     aimScope: 200,
                     imgPath: $IMG_DIR + 'monster.png',
